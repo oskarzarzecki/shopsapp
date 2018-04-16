@@ -1,4 +1,4 @@
-package com.oskiapps.shopsapp;
+package com.oskiapps.shopsapp.engine;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

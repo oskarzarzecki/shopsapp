@@ -1,4 +1,4 @@
-package com.oskiapps.shopsapp;
+package com.oskiapps.shopsapp.engine;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

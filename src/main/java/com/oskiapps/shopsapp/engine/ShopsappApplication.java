@@ -1,4 +1,4 @@
-package com.oskiapps.shopsapp;
+package com.oskiapps.shopsapp.engine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
