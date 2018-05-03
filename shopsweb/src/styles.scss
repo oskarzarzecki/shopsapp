@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Bootstrap customized  start */
+
+@import "node_modules/bootstrap/scss/bootstrap";
+
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+@import "node_modules/bootstrap/scss/reboot";
+@import "node_modules/bootstrap/scss/type";
+@import "node_modules/bootstrap/scss/images";
+@import "node_modules/bootstrap/scss/code";
+@import "node_modules/bootstrap/scss/grid";
+
+// buttons
+.btn > i {
+  margin-right: 10px;
+  margin-left: -5px;
+  font-size: 1.4em;
+}
+
+// colors
+$theme-colors: (
+  "main-light": #f8f9fa,
+  "main-dark": #27323d
+);
+
+// Generate `.bg-*` color utilities
+@each $color, $value in $theme-colors {
+  @include bg-variant('.bg-#{$color}', $value);
+}
+
+// border breakpoints
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .border#{$infix}-top-0 {    border-top: 0 !important; }
+    .border#{$infix}-right-0 {  border-right: 0 !important; }
+    .border#{$infix}-bottom-0 { border-bottom: 0 !important; }
+    .border#{$infix}-left-0 {   border-left: 0 !important; }
+    .border#{$infix}-top {      border-top: $border-width solid $border-color !important; }
+    .border#{$infix}-right {    border-right: $border-width solid $border-color !important; }
+    .border#{$infix}-bottom {   border-bottom: $border-width solid $border-color !important; }
+    .border#{$infix}-left {     border-left: $border-width solid $border-color !important; }
+
+    .border#{$infix}-x {
+      border-left: $border-width solid $border-color !important;
+      border-right: $border-width solid $border-color !important;
+    }
+
+    .border#{$infix}-y {
+      border-top: $border-width solid $border-color !important;
+      border-bottom: $border-width solid $border-color !important;
+    }
+  }
+}
+
+/* Bootstrap customized  end */

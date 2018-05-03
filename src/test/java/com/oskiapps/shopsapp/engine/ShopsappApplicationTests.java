@@ -1,4 +1,4 @@
-package com.oskiapps.shopsapp;
+package com.oskiapps.shopsapp.engine;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
