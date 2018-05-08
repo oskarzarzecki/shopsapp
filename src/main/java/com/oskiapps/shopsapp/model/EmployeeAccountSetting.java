@@ -16,7 +16,7 @@ public class EmployeeAccountSetting  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	private String value;
 
@@ -33,11 +33,11 @@ public class EmployeeAccountSetting  {
 	public EmployeeAccountSetting() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

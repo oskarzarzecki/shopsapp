@@ -16,7 +16,7 @@ public class AuctionDeliveryOption  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	//bi-directional many-to-one association to Auction
 	@ManyToOne
@@ -30,11 +30,11 @@ public class AuctionDeliveryOption  {
 	public AuctionDeliveryOption() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -17,7 +17,7 @@ public class ProductImage  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private String id;
 
 	private int available;
 
@@ -38,11 +38,11 @@ public class ProductImage  {
 	public ProductImage() {
 	}
 
-	public int getId() {
+	public String getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

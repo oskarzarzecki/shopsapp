@@ -17,7 +17,7 @@ public class CustomerBasket  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	private int history;
 
@@ -39,11 +39,11 @@ public class CustomerBasket  {
 	public CustomerBasket() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

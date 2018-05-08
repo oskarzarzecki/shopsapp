@@ -18,7 +18,7 @@ public class EmployeeRole  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	private int available;
 
@@ -34,23 +34,23 @@ public class EmployeeRole  {
 	@Lob
 	private String name;
 
-	//bi-directional many-to-one association to EmployeePlaceAcce
-	@OneToMany(mappedBy="employeeRole")
-	private List<EmployeePlaceAccess> employeePlaceAcces;
-
 	//bi-directional many-to-one association to EmployeeAccount
 	@ManyToOne
 	@JoinColumn(name="employee_account_id")
 	private EmployeeAccount employeeAccount;
 
+	//bi-directional many-to-one association to EmployeePlaceAccess
+	@OneToMany(mappedBy="employeeRole")
+	private List<EmployeePlaceAccess> employeePlaceAccesses;
+
 	public EmployeeRole() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -94,34 +94,34 @@ public class EmployeeRole  {
 		this.name = name;
 	}
 
-	public List<EmployeePlaceAccess> getEmployeePlaceAcces() {
-		return this.employeePlaceAcces;
-	}
-
-	public void setEmployeePlaceAcces(List<EmployeePlaceAccess> employeePlaceAcces) {
-		this.employeePlaceAcces = employeePlaceAcces;
-	}
-
-	public EmployeePlaceAccess addEmployeePlaceAcce(EmployeePlaceAccess employeePlaceAcce) {
-		getEmployeePlaceAcces().add(employeePlaceAcce);
-		employeePlaceAcce.setEmployeeRole(this);
-
-		return employeePlaceAcce;
-	}
-
-	public EmployeePlaceAccess removeEmployeePlaceAcce(EmployeePlaceAccess employeePlaceAcce) {
-		getEmployeePlaceAcces().remove(employeePlaceAcce);
-		employeePlaceAcce.setEmployeeRole(null);
-
-		return employeePlaceAcce;
-	}
-
 	public EmployeeAccount getEmployeeAccount() {
 		return this.employeeAccount;
 	}
 
 	public void setEmployeeAccount(EmployeeAccount employeeAccount) {
 		this.employeeAccount = employeeAccount;
+	}
+
+	public List<EmployeePlaceAccess> getEmployeePlaceAccesses() {
+		return this.employeePlaceAccesses;
+	}
+
+	public void setEmployeePlaceAccesses(List<EmployeePlaceAccess> employeePlaceAccesses) {
+		this.employeePlaceAccesses = employeePlaceAccesses;
+	}
+
+	public EmployeePlaceAccess addEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
+		getEmployeePlaceAccesses().add(employeePlaceAccess);
+		employeePlaceAccess.setEmployeeRole(this);
+
+		return employeePlaceAccess;
+	}
+
+	public EmployeePlaceAccess removeEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
+		getEmployeePlaceAccesses().remove(employeePlaceAccess);
+		employeePlaceAccess.setEmployeeRole(null);
+
+		return employeePlaceAccess;
 	}
 
 }

@@ -7,18 +7,18 @@ import java.util.List;
 
 
 /**
- * The persistent class for the employee_module_acces database table.
+ * The persistent class for the employee_module_access database table.
  * 
  */
 @Entity
-@Table(name="employee_module_acces")
+@Table(name="employee_module_access")
 @NamedQuery(name="EmployeeModuleAccess.findAll", query="SELECT e FROM EmployeeModuleAccess e")
 public class EmployeeModuleAccess  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	private int active;
 
@@ -52,11 +52,11 @@ public class EmployeeModuleAccess  {
 	public EmployeeModuleAccess() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

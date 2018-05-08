@@ -17,7 +17,7 @@ public class Place  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	private int available;
 
@@ -43,10 +43,6 @@ public class Place  {
 	@OneToMany(mappedBy="place")
 	private List<CustomerOrder> customerOrders;
 
-	//bi-directional many-to-one association to EmployeePlaceAcce
-	@OneToMany(mappedBy="place")
-	private List<EmployeePlaceAccess> employeePlaceAcces;
-
 	//bi-directional many-to-one association to EmploymentHistory
 	@OneToMany(mappedBy="place")
 	private List<EmploymentHistory> employmentHistories;
@@ -59,6 +55,10 @@ public class Place  {
 	@OneToMany(mappedBy="place")
 	private List<PlaceTypeAssign> placeTypeAssigns;
 
+	//bi-directional many-to-one association to EmployeePlaceAccess
+	@OneToMany(mappedBy="place")
+	private List<EmployeePlaceAccess> employeePlaceAccesses;
+
 	//bi-directional many-to-one association to StoredProduct
 	@OneToMany(mappedBy="place")
 	private List<StoredProduct> storedProducts;
@@ -66,11 +66,11 @@ public class Place  {
 	public Place() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -160,28 +160,6 @@ public class Place  {
 		return customerOrder;
 	}
 
-	public List<EmployeePlaceAccess> getEmployeePlaceAcces() {
-		return this.employeePlaceAcces;
-	}
-
-	public void setEmployeePlaceAcces(List<EmployeePlaceAccess> employeePlaceAcces) {
-		this.employeePlaceAcces = employeePlaceAcces;
-	}
-
-	public EmployeePlaceAccess addEmployeePlaceAcce(EmployeePlaceAccess employeePlaceAcce) {
-		getEmployeePlaceAcces().add(employeePlaceAcce);
-		employeePlaceAcce.setPlace(this);
-
-		return employeePlaceAcce;
-	}
-
-	public EmployeePlaceAccess removeEmployeePlaceAcce(EmployeePlaceAccess employeePlaceAcce) {
-		getEmployeePlaceAcces().remove(employeePlaceAcce);
-		employeePlaceAcce.setPlace(null);
-
-		return employeePlaceAcce;
-	}
-
 	public List<EmploymentHistory> getEmploymentHistories() {
 		return this.employmentHistories;
 	}
@@ -232,6 +210,28 @@ public class Place  {
 		placeTypeAssign.setPlace(null);
 
 		return placeTypeAssign;
+	}
+
+	public List<EmployeePlaceAccess> getEmployeePlaceAccesses() {
+		return this.employeePlaceAccesses;
+	}
+
+	public void setEmployeePlaceAccesses(List<EmployeePlaceAccess> employeePlaceAccesses) {
+		this.employeePlaceAccesses = employeePlaceAccesses;
+	}
+
+	public EmployeePlaceAccess addEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
+		getEmployeePlaceAccesses().add(employeePlaceAccess);
+		employeePlaceAccess.setPlace(this);
+
+		return employeePlaceAccess;
+	}
+
+	public EmployeePlaceAccess removeEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
+		getEmployeePlaceAccesses().remove(employeePlaceAccess);
+		employeePlaceAccess.setPlace(null);
+
+		return employeePlaceAccess;
 	}
 
 	public List<StoredProduct> getStoredProducts() {

@@ -18,7 +18,7 @@ public class EmployeePlaceAccess  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	private int active;
 
@@ -42,7 +42,7 @@ public class EmployeePlaceAccess  {
 
 	//bi-directional many-to-one association to EmployeeModuleAccess
 	@OneToMany(mappedBy="employeePlaceAccess")
-	private List<EmployeeModuleAccess> employeeModuleAccess;
+	private List<EmployeeModuleAccess> employeeModuleAccesses;
 
 	//bi-directional many-to-one association to EmployeeRole
 	@ManyToOne
@@ -56,11 +56,11 @@ public class EmployeePlaceAccess  {
 	public EmployeePlaceAccess() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -126,23 +126,23 @@ public class EmployeePlaceAccess  {
 		return employeeLogin;
 	}
 
-	public List<EmployeeModuleAccess> getEmployeeModuleAccess() {
-		return this.employeeModuleAccess;
+	public List<EmployeeModuleAccess> getEmployeeModuleAccesses() {
+		return this.employeeModuleAccesses;
 	}
 
-	public void setEmployeeModuleAccess(List<EmployeeModuleAccess> employeeModuleAccess) {
-		this.employeeModuleAccess = employeeModuleAccess;
+	public void setEmployeeModuleAccesses(List<EmployeeModuleAccess> employeeModuleAccesses) {
+		this.employeeModuleAccesses = employeeModuleAccesses;
 	}
 
 	public EmployeeModuleAccess addEmployeeModuleAccess(EmployeeModuleAccess employeeModuleAccess) {
-		getEmployeeModuleAccess().add(employeeModuleAccess);
+		getEmployeeModuleAccesses().add(employeeModuleAccess);
 		employeeModuleAccess.setEmployeePlaceAccess(this);
 
 		return employeeModuleAccess;
 	}
 
 	public EmployeeModuleAccess removeEmployeeModuleAccess(EmployeeModuleAccess employeeModuleAccess) {
-		getEmployeeModuleAccess().remove(employeeModuleAccess);
+		getEmployeeModuleAccesses().remove(employeeModuleAccess);
 		employeeModuleAccess.setEmployeePlaceAccess(null);
 
 		return employeeModuleAccess;

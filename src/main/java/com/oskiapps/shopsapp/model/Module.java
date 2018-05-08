@@ -16,7 +16,7 @@ public class Module  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	private int active;
 
@@ -30,18 +30,18 @@ public class Module  {
 	@OneToMany(mappedBy="module")
 	private List<ApplicationSetting> applicationSettings;
 
-	//bi-directional many-to-one association to EmployeeModuleAcce
+	//bi-directional many-to-one association to EmployeeModuleAccess
 	@OneToMany(mappedBy="module")
-	private List<EmployeeModuleAccess> employeeModuleAcces;
+	private List<EmployeeModuleAccess> employeeModuleAccesses;
 
 	public Module() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -91,26 +91,26 @@ public class Module  {
 		return applicationSetting;
 	}
 
-	public List<EmployeeModuleAccess> getEmployeeModuleAcces() {
-		return this.employeeModuleAcces;
+	public List<EmployeeModuleAccess> getEmployeeModuleAccesses() {
+		return this.employeeModuleAccesses;
 	}
 
-	public void setEmployeeModuleAcces(List<EmployeeModuleAccess> employeeModuleAcces) {
-		this.employeeModuleAcces = employeeModuleAcces;
+	public void setEmployeeModuleAccesses(List<EmployeeModuleAccess> employeeModuleAccesses) {
+		this.employeeModuleAccesses = employeeModuleAccesses;
 	}
 
-	public EmployeeModuleAccess addEmployeeModuleAcce(EmployeeModuleAccess employeeModuleAcce) {
-		getEmployeeModuleAcces().add(employeeModuleAcce);
-		employeeModuleAcce.setModule(this);
+	public EmployeeModuleAccess addEmployeeModuleAccess(EmployeeModuleAccess employeeModuleAccess) {
+		getEmployeeModuleAccesses().add(employeeModuleAccess);
+		employeeModuleAccess.setModule(this);
 
-		return employeeModuleAcce;
+		return employeeModuleAccess;
 	}
 
-	public EmployeeModuleAccess removeEmployeeModuleAcce(EmployeeModuleAccess employeeModuleAcce) {
-		getEmployeeModuleAcces().remove(employeeModuleAcce);
-		employeeModuleAcce.setModule(null);
+	public EmployeeModuleAccess removeEmployeeModuleAccess(EmployeeModuleAccess employeeModuleAccess) {
+		getEmployeeModuleAccesses().remove(employeeModuleAccess);
+		employeeModuleAccess.setModule(null);
 
-		return employeeModuleAcce;
+		return employeeModuleAccess;
 	}
 
 }
