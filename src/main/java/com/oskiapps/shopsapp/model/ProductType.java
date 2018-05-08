@@ -2,6 +2,9 @@ package com.oskiapps.shopsapp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
@@ -35,10 +38,12 @@ public class ProductType  {
 
 	//bi-directional many-to-one association to ProductCategory
 	@OneToMany(mappedBy="productType")
+	@JsonIgnore
 	private List<ProductCategory> productCategories;
 
 	//bi-directional many-to-one association to ProductTypeImage
 	@OneToMany(mappedBy="productType")
+	@JsonIgnore
 	private List<ProductTypeImage> productTypeImages;
 
 	public ProductType() {

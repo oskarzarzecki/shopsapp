@@ -2,6 +2,9 @@ package com.oskiapps.shopsapp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +38,7 @@ public class VatRate  {
 
 	//bi-directional many-to-one association to Product
 	@OneToMany(mappedBy="vatRate")
+	@JsonIgnore
 	private List<Product> products;
 
 	public VatRate() {

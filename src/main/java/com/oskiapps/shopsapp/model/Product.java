@@ -2,6 +2,9 @@ package com.oskiapps.shopsapp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
@@ -34,10 +37,12 @@ public class Product  {
 
 	//bi-directional many-to-one association to Auction
 	@OneToMany(mappedBy="product")
+	@JsonIgnore
 	private List<Auction> auctions;
 
 	//bi-directional many-to-one association to CustomerFavoriteProduct
 	@OneToMany(mappedBy="product")
+	@JsonIgnore
 	private List<CustomerFavoriteProduct> customerFavoriteProducts;
 
 	//bi-directional many-to-one association to ProductCategory
@@ -52,14 +57,17 @@ public class Product  {
 
 	//bi-directional many-to-one association to ProductVariant
 	@OneToMany(mappedBy="product")
+	@JsonIgnore
 	private List<ProductVariant> productVariants;
 
 	//bi-directional many-to-one association to PropertyValue
 	@OneToMany(mappedBy="product")
+	@JsonIgnore
 	private List<PropertyValue> propertyValues;
 
 	//bi-directional many-to-one association to StoredProduct
 	@OneToMany(mappedBy="product")
+	@JsonIgnore
 	private List<StoredProduct> storedProducts;
 
 	public Product() {
