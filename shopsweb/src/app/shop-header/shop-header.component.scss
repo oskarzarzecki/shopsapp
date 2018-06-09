@@ -1,0 +1,20 @@
+.main-logo {
+    font-family: 'Luckiest Guy';
+}
+
+.nav-scroller {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.nav-item {
+    max-width: 100px;
+}
+
+.banner-pagination {
+    background-color: lightcyan;
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
