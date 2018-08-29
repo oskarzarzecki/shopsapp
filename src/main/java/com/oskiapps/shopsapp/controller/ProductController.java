@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oskiapps.shopsapp.model.Product;
 import com.oskiapps.shopsapp.repository.ProductRepository;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
 	@Autowired
@@ -25,8 +26,8 @@ public class ProductController {
 		return productRepository.findAll();
 	}
 
-	@GetMapping("/{id}")
-	public Optional<Product> getProduct(@PathVariable("id") Long id, @RequestBody Product product) {
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
+	public Optional<Product> getProduct(@PathVariable("id") Long id) {
 		return productRepository.findById(id);
 	}
 

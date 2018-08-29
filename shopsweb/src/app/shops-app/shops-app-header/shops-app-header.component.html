@@ -10,10 +10,9 @@
                 <link href='https://fonts.googleapis.com/css?family=Luckiest Guy' rel='stylesheet'>
                 <h1 class="main-logo text-dark" href="#">SHOPS.APP</h1>
             </div>
-            <div class="col-md-4 d-flex justify-content-end align-items-center mt-3 mt-md-0">
-                <button class="btn btn-outline-secondary mr-2" href="#">Sign in</button>
-                <button class="btn btn-outline-secondary" href="#">Sign up</button>
-            </div>
+
+            <router-outlet name="header-top-right"></router-outlet>
+            
         </div>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-main-light">
@@ -43,7 +42,8 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown border-xl-left d-flex align-items-center">
-                        <a class="nav-link dropdown" href="http://example.com" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home & Garden</a>
+                        <a class="nav-link dropdown" href="http://example.com" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home
+                            & Garden</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown06">
                             <a class="dropdown-item" href="#">Category 1</a>
                             <a class="dropdown-item" href="#">Category 2</a>
