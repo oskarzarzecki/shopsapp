@@ -17,7 +17,7 @@ public class EmployeeAccount  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
 	private int active;
@@ -55,9 +55,13 @@ public class EmployeeAccount  {
 	@OneToMany(mappedBy="employeeAccount")
 	private List<EmployeeAccountSetting> employeeAccountSettings;
 
-	//bi-directional many-to-one association to EmployeeRole
+	//bi-directional many-to-one association to EmployeeLogin
 	@OneToMany(mappedBy="employeeAccount")
-	private List<EmployeeRole> employeeRoles;
+	private List<EmployeeLogin> employeeLogins;
+
+	//bi-directional many-to-one association to EmployeePlaceAccess
+	@OneToMany(mappedBy="employeeAccount")
+	private List<EmployeePlaceAccess> employeePlaceAccesses;
 
 	public EmployeeAccount() {
 	}
@@ -172,26 +176,48 @@ public class EmployeeAccount  {
 		return employeeAccountSetting;
 	}
 
-	public List<EmployeeRole> getEmployeeRoles() {
-		return this.employeeRoles;
+	public List<EmployeeLogin> getEmployeeLogins() {
+		return this.employeeLogins;
 	}
 
-	public void setEmployeeRoles(List<EmployeeRole> employeeRoles) {
-		this.employeeRoles = employeeRoles;
+	public void setEmployeeLogins(List<EmployeeLogin> employeeLogins) {
+		this.employeeLogins = employeeLogins;
 	}
 
-	public EmployeeRole addEmployeeRole(EmployeeRole employeeRole) {
-		getEmployeeRoles().add(employeeRole);
-		employeeRole.setEmployeeAccount(this);
+	public EmployeeLogin addEmployeeLogin(EmployeeLogin employeeLogin) {
+		getEmployeeLogins().add(employeeLogin);
+		employeeLogin.setEmployeeAccount(this);
 
-		return employeeRole;
+		return employeeLogin;
 	}
 
-	public EmployeeRole removeEmployeeRole(EmployeeRole employeeRole) {
-		getEmployeeRoles().remove(employeeRole);
-		employeeRole.setEmployeeAccount(null);
+	public EmployeeLogin removeEmployeeLogin(EmployeeLogin employeeLogin) {
+		getEmployeeLogins().remove(employeeLogin);
+		employeeLogin.setEmployeeAccount(null);
 
-		return employeeRole;
+		return employeeLogin;
+	}
+
+	public List<EmployeePlaceAccess> getEmployeePlaceAccesses() {
+		return this.employeePlaceAccesses;
+	}
+
+	public void setEmployeePlaceAccesses(List<EmployeePlaceAccess> employeePlaceAccesses) {
+		this.employeePlaceAccesses = employeePlaceAccesses;
+	}
+
+	public EmployeePlaceAccess addEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
+		getEmployeePlaceAccesses().add(employeePlaceAccess);
+		employeePlaceAccess.setEmployeeAccount(this);
+
+		return employeePlaceAccess;
+	}
+
+	public EmployeePlaceAccess removeEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
+		getEmployeePlaceAccesses().remove(employeePlaceAccess);
+		employeePlaceAccess.setEmployeeAccount(null);
+
+		return employeePlaceAccess;
 	}
 
 }

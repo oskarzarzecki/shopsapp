@@ -16,8 +16,8 @@ public class ProductImage  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
 
 	private int available;
 
@@ -38,11 +38,11 @@ public class ProductImage  {
 	public ProductImage() {
 	}
 
-	public String getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

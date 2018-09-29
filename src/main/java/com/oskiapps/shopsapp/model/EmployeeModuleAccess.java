@@ -3,7 +3,6 @@ package com.oskiapps.shopsapp.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -17,7 +16,7 @@ public class EmployeeModuleAccess  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
 	private int active;
@@ -35,10 +34,6 @@ public class EmployeeModuleAccess  {
 	private Date dateTo;
 
 	private int deleted;
-
-	//bi-directional many-to-one association to EmployeeLogin
-	@OneToMany(mappedBy="employeeModuleAccess")
-	private List<EmployeeLogin> employeeLogins;
 
 	//bi-directional many-to-one association to EmployeePlaceAccess
 	@ManyToOne
@@ -98,28 +93,6 @@ public class EmployeeModuleAccess  {
 
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
-	}
-
-	public List<EmployeeLogin> getEmployeeLogins() {
-		return this.employeeLogins;
-	}
-
-	public void setEmployeeLogins(List<EmployeeLogin> employeeLogins) {
-		this.employeeLogins = employeeLogins;
-	}
-
-	public EmployeeLogin addEmployeeLogin(EmployeeLogin employeeLogin) {
-		getEmployeeLogins().add(employeeLogin);
-		employeeLogin.setEmployeeModuleAccess(this);
-
-		return employeeLogin;
-	}
-
-	public EmployeeLogin removeEmployeeLogin(EmployeeLogin employeeLogin) {
-		getEmployeeLogins().remove(employeeLogin);
-		employeeLogin.setEmployeeModuleAccess(null);
-
-		return employeeLogin;
 	}
 
 	public EmployeePlaceAccess getEmployeePlaceAccess() {

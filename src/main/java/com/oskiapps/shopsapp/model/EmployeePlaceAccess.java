@@ -3,6 +3,7 @@ package com.oskiapps.shopsapp.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.math.BigInteger;
 import java.util.List;
 
 
@@ -17,7 +18,7 @@ public class EmployeePlaceAccess  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
 	private int active;
@@ -36,18 +37,17 @@ public class EmployeePlaceAccess  {
 
 	private int deleted;
 
-	//bi-directional many-to-one association to EmployeeLogin
-	@OneToMany(mappedBy="employeePlaceAccess")
-	private List<EmployeeLogin> employeeLogins;
+	@Column(name="employee_role_id")
+	private BigInteger employeeRoleId;
 
 	//bi-directional many-to-one association to EmployeeModuleAccess
 	@OneToMany(mappedBy="employeePlaceAccess")
 	private List<EmployeeModuleAccess> employeeModuleAccesses;
 
-	//bi-directional many-to-one association to EmployeeRole
+	//bi-directional many-to-one association to EmployeeAccount
 	@ManyToOne
-	@JoinColumn(name="employee_role_id")
-	private EmployeeRole employeeRole;
+	@JoinColumn(name="employee_account_id")
+	private EmployeeAccount employeeAccount;
 
 	//bi-directional many-to-one association to Place
 	@ManyToOne
@@ -104,26 +104,12 @@ public class EmployeePlaceAccess  {
 		this.deleted = deleted;
 	}
 
-	public List<EmployeeLogin> getEmployeeLogins() {
-		return this.employeeLogins;
+	public BigInteger getEmployeeRoleId() {
+		return this.employeeRoleId;
 	}
 
-	public void setEmployeeLogins(List<EmployeeLogin> employeeLogins) {
-		this.employeeLogins = employeeLogins;
-	}
-
-	public EmployeeLogin addEmployeeLogin(EmployeeLogin employeeLogin) {
-		getEmployeeLogins().add(employeeLogin);
-		employeeLogin.setEmployeePlaceAccess(this);
-
-		return employeeLogin;
-	}
-
-	public EmployeeLogin removeEmployeeLogin(EmployeeLogin employeeLogin) {
-		getEmployeeLogins().remove(employeeLogin);
-		employeeLogin.setEmployeePlaceAccess(null);
-
-		return employeeLogin;
+	public void setEmployeeRoleId(BigInteger employeeRoleId) {
+		this.employeeRoleId = employeeRoleId;
 	}
 
 	public List<EmployeeModuleAccess> getEmployeeModuleAccesses() {
@@ -148,12 +134,12 @@ public class EmployeePlaceAccess  {
 		return employeeModuleAccess;
 	}
 
-	public EmployeeRole getEmployeeRole() {
-		return this.employeeRole;
+	public EmployeeAccount getEmployeeAccount() {
+		return this.employeeAccount;
 	}
 
-	public void setEmployeeRole(EmployeeRole employeeRole) {
-		this.employeeRole = employeeRole;
+	public void setEmployeeAccount(EmployeeAccount employeeAccount) {
+		this.employeeAccount = employeeAccount;
 	}
 
 	public Place getPlace() {

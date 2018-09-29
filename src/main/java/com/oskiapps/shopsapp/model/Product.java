@@ -1,12 +1,22 @@
 package com.oskiapps.shopsapp.model;
 
-import java.io.Serializable;
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -19,7 +29,7 @@ public class Product  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
 	private int available;
@@ -55,15 +65,15 @@ public class Product  {
 	@JoinColumn(name="vat_rate_id")
 	private VatRate vatRate;
 
+	//bi-directional many-to-one association to ProductPropertyValue
+	@OneToMany(mappedBy="product")
+	@JsonIgnore
+	private List<ProductPropertyValue> productPropertyValues;
+
 	//bi-directional many-to-one association to ProductVariant
 	@OneToMany(mappedBy="product")
 	@JsonIgnore
 	private List<ProductVariant> productVariants;
-
-	//bi-directional many-to-one association to PropertyValue
-	@OneToMany(mappedBy="product")
-	@JsonIgnore
-	private List<PropertyValue> propertyValues;
 
 	//bi-directional many-to-one association to StoredProduct
 	@OneToMany(mappedBy="product")
@@ -181,6 +191,28 @@ public class Product  {
 		this.vatRate = vatRate;
 	}
 
+	public List<ProductPropertyValue> getProductPropertyValues() {
+		return this.productPropertyValues;
+	}
+
+	public void setProductPropertyValues(List<ProductPropertyValue> productPropertyValues) {
+		this.productPropertyValues = productPropertyValues;
+	}
+
+	public ProductPropertyValue addProductPropertyValue(ProductPropertyValue productPropertyValue) {
+		getProductPropertyValues().add(productPropertyValue);
+		productPropertyValue.setProduct(this);
+
+		return productPropertyValue;
+	}
+
+	public ProductPropertyValue removeProductPropertyValue(ProductPropertyValue productPropertyValue) {
+		getProductPropertyValues().remove(productPropertyValue);
+		productPropertyValue.setProduct(null);
+
+		return productPropertyValue;
+	}
+
 	public List<ProductVariant> getProductVariants() {
 		return this.productVariants;
 	}
@@ -201,28 +233,6 @@ public class Product  {
 		productVariant.setProduct(null);
 
 		return productVariant;
-	}
-
-	public List<PropertyValue> getPropertyValues() {
-		return this.propertyValues;
-	}
-
-	public void setPropertyValues(List<PropertyValue> propertyValues) {
-		this.propertyValues = propertyValues;
-	}
-
-	public PropertyValue addPropertyValue(PropertyValue propertyValue) {
-		getPropertyValues().add(propertyValue);
-		propertyValue.setProduct(this);
-
-		return propertyValue;
-	}
-
-	public PropertyValue removePropertyValue(PropertyValue propertyValue) {
-		getPropertyValues().remove(propertyValue);
-		propertyValue.setProduct(null);
-
-		return propertyValue;
 	}
 
 	public List<StoredProduct> getStoredProducts() {

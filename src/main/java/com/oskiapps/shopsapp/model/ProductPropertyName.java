@@ -7,13 +7,13 @@ import java.util.List;
 
 
 /**
- * The persistent class for the order_status database table.
+ * The persistent class for the product_property_name database table.
  * 
  */
 @Entity
-@Table(name="order_status")
-@NamedQuery(name="OrderStatus.findAll", query="SELECT o FROM OrderStatus o")
-public class OrderStatus  {
+@Table(name="product_property_name")
+@NamedQuery(name="ProductPropertyName.findAll", query="SELECT p FROM ProductPropertyName p")
+public class ProductPropertyName  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -30,11 +30,11 @@ public class OrderStatus  {
 
 	private String name;
 
-	//bi-directional many-to-one association to OrderStatusDate
-	@OneToMany(mappedBy="orderStatus")
-	private List<OrderStatusDate> orderStatusDates;
+	//bi-directional many-to-one association to ProductProperty
+	@OneToMany(mappedBy="productPropertyName")
+	private List<ProductProperty> productProperties;
 
-	public OrderStatus() {
+	public ProductPropertyName() {
 	}
 
 	public long getId() {
@@ -77,26 +77,26 @@ public class OrderStatus  {
 		this.name = name;
 	}
 
-	public List<OrderStatusDate> getOrderStatusDates() {
-		return this.orderStatusDates;
+	public List<ProductProperty> getProductProperties() {
+		return this.productProperties;
 	}
 
-	public void setOrderStatusDates(List<OrderStatusDate> orderStatusDates) {
-		this.orderStatusDates = orderStatusDates;
+	public void setProductProperties(List<ProductProperty> productProperties) {
+		this.productProperties = productProperties;
 	}
 
-	public OrderStatusDate addOrderStatusDate(OrderStatusDate orderStatusDate) {
-		getOrderStatusDates().add(orderStatusDate);
-		orderStatusDate.setOrderStatus(this);
+	public ProductProperty addProductProperty(ProductProperty productProperty) {
+		getProductProperties().add(productProperty);
+		productProperty.setProductPropertyName(this);
 
-		return orderStatusDate;
+		return productProperty;
 	}
 
-	public OrderStatusDate removeOrderStatusDate(OrderStatusDate orderStatusDate) {
-		getOrderStatusDates().remove(orderStatusDate);
-		orderStatusDate.setOrderStatus(null);
+	public ProductProperty removeProductProperty(ProductProperty productProperty) {
+		getProductProperties().remove(productProperty);
+		productProperty.setProductPropertyName(null);
 
-		return orderStatusDate;
+		return productProperty;
 	}
 
 }

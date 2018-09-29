@@ -1,12 +1,23 @@
 package com.oskiapps.shopsapp.model;
 
-import java.io.Serializable;
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -20,7 +31,7 @@ public class ProductCategory  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
 	private int available;
@@ -41,6 +52,11 @@ public class ProductCategory  {
 	@JsonIgnore
 	private List<Product> products;
 
+	//bi-directional many-to-one association to ProductProperty
+	@ManyToOne
+	@JoinColumn(name="product_property_id")
+	private ProductProperty productProperty;
+
 	//bi-directional many-to-one association to ProductType
 	@ManyToOne
 	@JoinColumn(name="product_type_id")
@@ -50,6 +66,10 @@ public class ProductCategory  {
 	@OneToMany(mappedBy="productCategory")
 	@JsonIgnore
 	private List<ProductCategoryImage> productCategoryImages;
+
+	//bi-directional many-to-one association to ProductProperty
+	@OneToMany(mappedBy="productCategory")
+	private List<ProductProperty> productProperties;
 
 	public ProductCategory() {
 	}
@@ -124,6 +144,14 @@ public class ProductCategory  {
 		return product;
 	}
 
+	public ProductProperty getProductProperty() {
+		return this.productProperty;
+	}
+
+	public void setProductProperty(ProductProperty productProperty) {
+		this.productProperty = productProperty;
+	}
+
 	public ProductType getProductType() {
 		return this.productType;
 	}
@@ -152,6 +180,28 @@ public class ProductCategory  {
 		productCategoryImage.setProductCategory(null);
 
 		return productCategoryImage;
+	}
+
+	public List<ProductProperty> getProductProperties() {
+		return this.productProperties;
+	}
+
+	public void setProductProperties(List<ProductProperty> productProperties) {
+		this.productProperties = productProperties;
+	}
+
+	public ProductProperty addProductProperty(ProductProperty productProperty) {
+		getProductProperties().add(productProperty);
+		productProperty.setProductCategory(this);
+
+		return productProperty;
+	}
+
+	public ProductProperty removeProductProperty(ProductProperty productProperty) {
+		getProductProperties().remove(productProperty);
+		productProperty.setProductCategory(null);
+
+		return productProperty;
 	}
 
 }

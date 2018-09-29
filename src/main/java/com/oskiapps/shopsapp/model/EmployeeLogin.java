@@ -16,7 +16,7 @@ public class EmployeeLogin  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
 	private String browser;
@@ -31,15 +31,10 @@ public class EmployeeLogin  {
 
 	private String ip;
 
-	//bi-directional many-to-one association to EmployeeModuleAccess
+	//bi-directional many-to-one association to EmployeeAccount
 	@ManyToOne
-	@JoinColumn(name="employee_module_access_id")
-	private EmployeeModuleAccess employeeModuleAccess;
-
-	//bi-directional many-to-one association to EmployeePlaceAccess
-	@ManyToOne
-	@JoinColumn(name="employee_place_access_id")
-	private EmployeePlaceAccess employeePlaceAccess;
+	@JoinColumn(name="employee_account_id")
+	private EmployeeAccount employeeAccount;
 
 	public EmployeeLogin() {
 	}
@@ -84,20 +79,12 @@ public class EmployeeLogin  {
 		this.ip = ip;
 	}
 
-	public EmployeeModuleAccess getEmployeeModuleAccess() {
-		return this.employeeModuleAccess;
+	public EmployeeAccount getEmployeeAccount() {
+		return this.employeeAccount;
 	}
 
-	public void setEmployeeModuleAccess(EmployeeModuleAccess employeeModuleAccess) {
-		this.employeeModuleAccess = employeeModuleAccess;
-	}
-
-	public EmployeePlaceAccess getEmployeePlaceAccess() {
-		return this.employeePlaceAccess;
-	}
-
-	public void setEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
-		this.employeePlaceAccess = employeePlaceAccess;
+	public void setEmployeeAccount(EmployeeAccount employeeAccount) {
+		this.employeeAccount = employeeAccount;
 	}
 
 }

@@ -6,17 +6,17 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the property_value database table.
+ * The persistent class for the product_property_image database table.
  * 
  */
 @Entity
-@Table(name="property_value")
-@NamedQuery(name="PropertyValue.findAll", query="SELECT p FROM PropertyValue p")
-public class PropertyValue  {
+@Table(name="product_property_image")
+@NamedQuery(name="ProductPropertyImage.findAll", query="SELECT p FROM ProductPropertyImage p")
+public class ProductPropertyImage  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
 	private int available;
@@ -27,17 +27,15 @@ public class PropertyValue  {
 
 	private int deleted;
 
-	private String value;
+	@Lob
+	private String path;
 
-	//bi-directional many-to-one association to Product
+	//bi-directional many-to-one association to ProductProperty
 	@ManyToOne
-	private Product product;
+	@JoinColumn(name="property_id")
+	private ProductProperty productProperty;
 
-	//bi-directional many-to-one association to Property
-	@ManyToOne
-	private Property property;
-
-	public PropertyValue() {
+	public ProductPropertyImage() {
 	}
 
 	public long getId() {
@@ -72,28 +70,20 @@ public class PropertyValue  {
 		this.deleted = deleted;
 	}
 
-	public String getValue() {
-		return this.value;
+	public String getPath() {
+		return this.path;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
-	public Product getProduct() {
-		return this.product;
+	public ProductProperty getProductProperty() {
+		return this.productProperty;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public Property getProperty() {
-		return this.property;
-	}
-
-	public void setProperty(Property property) {
-		this.property = property;
+	public void setProductProperty(ProductProperty productProperty) {
+		this.productProperty = productProperty;
 	}
 
 }

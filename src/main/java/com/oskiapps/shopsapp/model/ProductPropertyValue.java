@@ -2,18 +2,17 @@ package com.oskiapps.shopsapp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 
 
 /**
- * The persistent class for the stored_product database table.
+ * The persistent class for the product_property_value database table.
  * 
  */
 @Entity
-@Table(name="stored_product")
-@NamedQuery(name="StoredProduct.findAll", query="SELECT s FROM StoredProduct s")
-public class StoredProduct  {
+@Table(name="product_property_value")
+@NamedQuery(name="ProductPropertyValue.findAll", query="SELECT p FROM ProductPropertyValue p")
+public class ProductPropertyValue  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,19 +27,18 @@ public class StoredProduct  {
 
 	private int deleted;
 
-	private int quanity;
-
-	private BigDecimal size;
-
-	//bi-directional many-to-one association to Place
-	@ManyToOne
-	private Place place;
+	private String value;
 
 	//bi-directional many-to-one association to Product
 	@ManyToOne
 	private Product product;
 
-	public StoredProduct() {
+	//bi-directional many-to-one association to ProductProperty
+	@ManyToOne
+	@JoinColumn(name="property_id")
+	private ProductProperty productProperty;
+
+	public ProductPropertyValue() {
 	}
 
 	public long getId() {
@@ -75,28 +73,12 @@ public class StoredProduct  {
 		this.deleted = deleted;
 	}
 
-	public int getQuanity() {
-		return this.quanity;
+	public String getValue() {
+		return this.value;
 	}
 
-	public void setQuanity(int quanity) {
-		this.quanity = quanity;
-	}
-
-	public BigDecimal getSize() {
-		return this.size;
-	}
-
-	public void setSize(BigDecimal size) {
-		this.size = size;
-	}
-
-	public Place getPlace() {
-		return this.place;
-	}
-
-	public void setPlace(Place place) {
-		this.place = place;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	public Product getProduct() {
@@ -105,6 +87,14 @@ public class StoredProduct  {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public ProductProperty getProductProperty() {
+		return this.productProperty;
+	}
+
+	public void setProductProperty(ProductProperty productProperty) {
+		this.productProperty = productProperty;
 	}
 
 }

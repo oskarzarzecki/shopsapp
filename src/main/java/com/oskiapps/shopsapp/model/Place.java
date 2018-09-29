@@ -16,7 +16,7 @@ public class Place  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
 	private int available;
@@ -43,6 +43,10 @@ public class Place  {
 	@OneToMany(mappedBy="place")
 	private List<CustomerOrder> customerOrders;
 
+	//bi-directional many-to-one association to EmployeePlaceAccess
+	@OneToMany(mappedBy="place")
+	private List<EmployeePlaceAccess> employeePlaceAccesses;
+
 	//bi-directional many-to-one association to EmploymentHistory
 	@OneToMany(mappedBy="place")
 	private List<EmploymentHistory> employmentHistories;
@@ -54,10 +58,6 @@ public class Place  {
 	//bi-directional many-to-one association to PlaceTypeAssign
 	@OneToMany(mappedBy="place")
 	private List<PlaceTypeAssign> placeTypeAssigns;
-
-	//bi-directional many-to-one association to EmployeePlaceAccess
-	@OneToMany(mappedBy="place")
-	private List<EmployeePlaceAccess> employeePlaceAccesses;
 
 	//bi-directional many-to-one association to StoredProduct
 	@OneToMany(mappedBy="place")
@@ -160,6 +160,28 @@ public class Place  {
 		return customerOrder;
 	}
 
+	public List<EmployeePlaceAccess> getEmployeePlaceAccesses() {
+		return this.employeePlaceAccesses;
+	}
+
+	public void setEmployeePlaceAccesses(List<EmployeePlaceAccess> employeePlaceAccesses) {
+		this.employeePlaceAccesses = employeePlaceAccesses;
+	}
+
+	public EmployeePlaceAccess addEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
+		getEmployeePlaceAccesses().add(employeePlaceAccess);
+		employeePlaceAccess.setPlace(this);
+
+		return employeePlaceAccess;
+	}
+
+	public EmployeePlaceAccess removeEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
+		getEmployeePlaceAccesses().remove(employeePlaceAccess);
+		employeePlaceAccess.setPlace(null);
+
+		return employeePlaceAccess;
+	}
+
 	public List<EmploymentHistory> getEmploymentHistories() {
 		return this.employmentHistories;
 	}
@@ -210,28 +232,6 @@ public class Place  {
 		placeTypeAssign.setPlace(null);
 
 		return placeTypeAssign;
-	}
-
-	public List<EmployeePlaceAccess> getEmployeePlaceAccesses() {
-		return this.employeePlaceAccesses;
-	}
-
-	public void setEmployeePlaceAccesses(List<EmployeePlaceAccess> employeePlaceAccesses) {
-		this.employeePlaceAccesses = employeePlaceAccesses;
-	}
-
-	public EmployeePlaceAccess addEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
-		getEmployeePlaceAccesses().add(employeePlaceAccess);
-		employeePlaceAccess.setPlace(this);
-
-		return employeePlaceAccess;
-	}
-
-	public EmployeePlaceAccess removeEmployeePlaceAccess(EmployeePlaceAccess employeePlaceAccess) {
-		getEmployeePlaceAccesses().remove(employeePlaceAccess);
-		employeePlaceAccess.setPlace(null);
-
-		return employeePlaceAccess;
 	}
 
 	public List<StoredProduct> getStoredProducts() {
