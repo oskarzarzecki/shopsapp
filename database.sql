@@ -14,7 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema shopsappdb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `shopsappdb` DEFAULT CHARACTER SET utf8mb4 ;
+CREATE SCHEMA IF NOT EXISTS `shopsappdb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `shopsappdb` ;
 
 -- -----------------------------------------------------
@@ -63,6 +63,47 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
+-- Table `shopsappdb`.`product_property_name`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shopsappdb`.`product_property_name` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(1000) NOT NULL,
+  `available` INT(11) NOT NULL,
+  `deleted` INT(11) NOT NULL,
+  `date_deleted` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `shopsappdb`.`product_property`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shopsappdb`.`product_property` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `available` INT(11) NOT NULL,
+  `deleted` INT(11) NOT NULL,
+  `date_deleted` DATE NULL DEFAULT NULL,
+  `product_category_id` BIGINT(20) NOT NULL,
+  `product_property_name_id` BIGINT(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_product_property_product_category1_idx` (`product_category_id` ASC),
+  INDEX `fk_product_property_product_property_name1_idx` (`product_property_name_id` ASC),
+  CONSTRAINT `fk_product_property_product_category1`
+    FOREIGN KEY (`product_category_id`)
+    REFERENCES `shopsappdb`.`product_category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_product_property_product_property_name1`
+    FOREIGN KEY (`product_property_name_id`)
+    REFERENCES `shopsappdb`.`product_property_name` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
 -- Table `shopsappdb`.`product_category`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `shopsappdb`.`product_category` (
@@ -73,11 +114,18 @@ CREATE TABLE IF NOT EXISTS `shopsappdb`.`product_category` (
   `available` INT(11) NOT NULL,
   `deleted` INT(11) NOT NULL,
   `date_deleted` DATE NULL DEFAULT NULL,
+  `product_property_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `product_category_product_type_FKv1` (`product_type_id` ASC),
+  INDEX `fk_product_category_product_property1_idx` (`product_property_id` ASC),
   CONSTRAINT `product_category_product_type_FKv1`
     FOREIGN KEY (`product_type_id`)
-    REFERENCES `shopsappdb`.`product_type` (`id`))
+    REFERENCES `shopsappdb`.`product_type` (`id`),
+  CONSTRAINT `fk_product_category_product_property1`
+    FOREIGN KEY (`product_property_id`)
+    REFERENCES `shopsappdb`.`product_property` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -550,21 +598,22 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `shopsappdb`.`employee_role`
+-- Table `shopsappdb`.`employee_login`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `shopsappdb`.`employee_role` (
+CREATE TABLE IF NOT EXISTS `shopsappdb`.`employee_login` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `name` TEXT NOT NULL,
+  `date_from` DATE NOT NULL,
+  `date_to` DATE NOT NULL,
+  `ip` VARCHAR(100) NOT NULL,
+  `browser` VARCHAR(100) NOT NULL,
   `employee_account_id` BIGINT(20) NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `available` INT(11) NOT NULL,
-  `deleted` INT(11) NOT NULL,
-  `date_deleted` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `employee_role_employee_account_FKv1` (`employee_account_id` ASC),
-  CONSTRAINT `employee_role_employee_account_FKv1`
+  INDEX `fk_employee_login_employee_account1_idx` (`employee_account_id` ASC),
+  CONSTRAINT `fk_employee_login_employee_account1`
     FOREIGN KEY (`employee_account_id`)
-    REFERENCES `shopsappdb`.`employee_account` (`id`))
+    REFERENCES `shopsappdb`.`employee_account` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -581,15 +630,18 @@ CREATE TABLE IF NOT EXISTS `shopsappdb`.`employee_place_access` (
   `active` INT(11) NOT NULL,
   `deleted` INT(11) NOT NULL,
   `date_deleted` DATE NULL DEFAULT NULL,
+  `employee_account_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `employee_place_acces_employee_role_FKv1` (`employee_role_id` ASC),
   INDEX `employee_place_acces_place_FKv1` (`place_id` ASC),
-  CONSTRAINT `employee_place_acces_employee_role_FKv1`
-    FOREIGN KEY (`employee_role_id`)
-    REFERENCES `shopsappdb`.`employee_role` (`id`),
+  INDEX `fk_employee_place_access_employee_account1_idx` (`employee_account_id` ASC),
   CONSTRAINT `employee_place_acces_place_FKv1`
     FOREIGN KEY (`place_id`)
-    REFERENCES `shopsappdb`.`place` (`id`))
+    REFERENCES `shopsappdb`.`place` (`id`),
+  CONSTRAINT `fk_employee_place_access_employee_account1`
+    FOREIGN KEY (`employee_account_id`)
+    REFERENCES `shopsappdb`.`employee_account` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -615,30 +667,6 @@ CREATE TABLE IF NOT EXISTS `shopsappdb`.`employee_module_access` (
   CONSTRAINT `employee_module_acces_module_FKv1`
     FOREIGN KEY (`module_id`)
     REFERENCES `shopsappdb`.`module` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `shopsappdb`.`employee_login`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `shopsappdb`.`employee_login` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `date_from` DATE NOT NULL,
-  `date_to` DATE NOT NULL,
-  `ip` VARCHAR(100) NOT NULL,
-  `browser` VARCHAR(100) NOT NULL,
-  `employee_place_access_id` BIGINT(20) NOT NULL,
-  `employee_module_access_id` BIGINT(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `employee_login__IDX` (`employee_place_access_id` ASC),
-  UNIQUE INDEX `employee_login__IDXv1v1` (`employee_module_access_id` ASC),
-  CONSTRAINT `employee_login_employee_module_acces_FKv1`
-    FOREIGN KEY (`employee_module_access_id`)
-    REFERENCES `shopsappdb`.`employee_module_access` (`id`),
-  CONSTRAINT `employee_login_employee_place_acces_FKv1`
-    FOREIGN KEY (`employee_place_access_id`)
-    REFERENCES `shopsappdb`.`employee_place_access` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -852,9 +880,28 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `shopsappdb`.`property`
+-- Table `shopsappdb`.`product_property_image`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `shopsappdb`.`property` (
+CREATE TABLE IF NOT EXISTS `shopsappdb`.`product_property_image` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `path` TEXT NOT NULL,
+  `property_id` BIGINT(20) NOT NULL,
+  `available` INT(11) NOT NULL,
+  `deleted` INT(11) NOT NULL,
+  `date_deleted` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `product_property_image_property_FKv1` (`property_id` ASC),
+  CONSTRAINT `product_property_image_property_FKv1`
+    FOREIGN KEY (`property_id`)
+    REFERENCES `shopsappdb`.`product_property` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `shopsappdb`.`product_property_name`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shopsappdb`.`product_property_name` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(1000) NOT NULL,
   `available` INT(11) NOT NULL,
@@ -866,28 +913,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `shopsappdb`.`property_image`
+-- Table `shopsappdb`.`product_property_value`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `shopsappdb`.`property_image` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `path` TEXT NOT NULL,
-  `property_id` BIGINT(20) NOT NULL,
-  `available` INT(11) NOT NULL,
-  `deleted` INT(11) NOT NULL,
-  `date_deleted` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `property_image_property_FKv1` (`property_id` ASC),
-  CONSTRAINT `property_image_property_FKv1`
-    FOREIGN KEY (`property_id`)
-    REFERENCES `shopsappdb`.`property` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `shopsappdb`.`property_value`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `shopsappdb`.`property_value` (
+CREATE TABLE IF NOT EXISTS `shopsappdb`.`product_property_value` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `product_id` BIGINT(20) NOT NULL,
   `property_id` BIGINT(20) NOT NULL,
@@ -903,7 +931,7 @@ CREATE TABLE IF NOT EXISTS `shopsappdb`.`property_value` (
     REFERENCES `shopsappdb`.`product` (`id`),
   CONSTRAINT `property_value_property_FKv1`
     FOREIGN KEY (`property_id`)
-    REFERENCES `shopsappdb`.`property` (`id`))
+    REFERENCES `shopsappdb`.`product_property` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
