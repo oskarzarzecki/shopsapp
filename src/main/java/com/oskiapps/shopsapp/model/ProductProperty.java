@@ -29,10 +29,6 @@ public class ProductProperty  {
 	private int deleted;
 
 	//bi-directional many-to-one association to ProductCategory
-	@OneToMany(mappedBy="productProperty")
-	private List<ProductCategory> productCategories;
-
-	//bi-directional many-to-one association to ProductCategory
 	@ManyToOne
 	@JoinColumn(name="product_category_id")
 	private ProductCategory productCategory;
@@ -83,28 +79,6 @@ public class ProductProperty  {
 
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
-	}
-
-	public List<ProductCategory> getProductCategories() {
-		return this.productCategories;
-	}
-
-	public void setProductCategories(List<ProductCategory> productCategories) {
-		this.productCategories = productCategories;
-	}
-
-	public ProductCategory addProductCategory(ProductCategory productCategory) {
-		getProductCategories().add(productCategory);
-		productCategory.setProductProperty(this);
-
-		return productCategory;
-	}
-
-	public ProductCategory removeProductCategory(ProductCategory productCategory) {
-		getProductCategories().remove(productCategory);
-		productCategory.setProductProperty(null);
-
-		return productCategory;
 	}
 
 	public ProductCategory getProductCategory() {

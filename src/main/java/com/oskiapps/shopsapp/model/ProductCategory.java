@@ -1,23 +1,9 @@
 package com.oskiapps.shopsapp.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -49,13 +35,7 @@ public class ProductCategory  {
 
 	//bi-directional many-to-one association to Product
 	@OneToMany(mappedBy="productCategory")
-	@JsonIgnore
 	private List<Product> products;
-
-	//bi-directional many-to-one association to ProductProperty
-	@ManyToOne
-	@JoinColumn(name="product_property_id")
-	private ProductProperty productProperty;
 
 	//bi-directional many-to-one association to ProductType
 	@ManyToOne
@@ -64,7 +44,6 @@ public class ProductCategory  {
 
 	//bi-directional many-to-one association to ProductCategoryImage
 	@OneToMany(mappedBy="productCategory")
-	@JsonIgnore
 	private List<ProductCategoryImage> productCategoryImages;
 
 	//bi-directional many-to-one association to ProductProperty
@@ -142,14 +121,6 @@ public class ProductCategory  {
 		product.setProductCategory(null);
 
 		return product;
-	}
-
-	public ProductProperty getProductProperty() {
-		return this.productProperty;
-	}
-
-	public void setProductProperty(ProductProperty productProperty) {
-		this.productProperty = productProperty;
 	}
 
 	public ProductType getProductType() {
