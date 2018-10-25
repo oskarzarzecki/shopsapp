@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HeaderTopRightComponent } from './header/header-top-right/header-top-right.component';
-import { ShopMainSiteComponent } from './shop-main-site/shop-main-site.component';
+import { ShopMainSiteComponent } from './shop-main/shop-main-site/shop-main-site.component';
+import { ShopAuctionComponent } from './shop-main/shop-auction/shop-auction.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
     path: '',
     component: ShopMainSiteComponent,
     outlet: 'main-site-content'
+  },
+  {
+    path: 'auction/:idAuction',
+    component: ShopAuctionComponent
   }
 ];
 

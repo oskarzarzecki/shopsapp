@@ -18,24 +18,23 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 /**
  * The persistent class for the product database table.
  * 
  */
 @Entity
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
-public class Product  {
+@NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
+public class Product {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private int available;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_deleted")
+	@Column(name = "date_deleted")
 	private Date dateDeleted;
 
 	private int deleted;
@@ -45,38 +44,39 @@ public class Product  {
 
 	private String name;
 
-	//bi-directional many-to-one association to Auction
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to Auction
+	@OneToMany(mappedBy = "product")
 	@JsonIgnore
 	private List<Auction> auctions;
 
-	//bi-directional many-to-one association to CustomerFavoriteProduct
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to CustomerFavoriteProduct
+	@OneToMany(mappedBy = "product")
 	@JsonIgnore
 	private List<CustomerFavoriteProduct> customerFavoriteProducts;
 
-	//bi-directional many-to-one association to ProductCategory
+	// bi-directional many-to-one association to ProductCategory
 	@ManyToOne
-	@JoinColumn(name="product_category_id")
+	@JoinColumn(name = "product_category_id")
+	@JsonIgnore
 	private ProductCategory productCategory;
 
-	//bi-directional many-to-one association to VatRate
+	// bi-directional many-to-one association to VatRate
 	@ManyToOne
-	@JoinColumn(name="vat_rate_id")
+	@JoinColumn(name = "vat_rate_id")
 	private VatRate vatRate;
 
-	//bi-directional many-to-one association to ProductPropertyValue
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to ProductPropertyValue
+	@OneToMany(mappedBy = "product")
 	@JsonIgnore
 	private List<ProductPropertyValue> productPropertyValues;
 
-	//bi-directional many-to-one association to ProductVariant
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to ProductVariant
+	@OneToMany(mappedBy = "product")
 	@JsonIgnore
 	private List<ProductVariant> productVariants;
 
-	//bi-directional many-to-one association to StoredProduct
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to StoredProduct
+	@OneToMany(mappedBy = "product")
 	@JsonIgnore
 	private List<StoredProduct> storedProducts;
 

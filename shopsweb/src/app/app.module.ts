@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ShopsAppModule } from './shops-app/shops-app.module';
+import { ConfigService } from './config/config.service';
 
 
 @NgModule({
@@ -13,9 +15,10 @@ import { ShopsAppModule } from './shops-app/shops-app.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ShopsAppModule
+    ShopsAppModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
