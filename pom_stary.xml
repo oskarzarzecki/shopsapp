@@ -87,14 +87,74 @@
 	</dependencies>
 
 	<build>
+<!--
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>exec-npm-install</id>
+							<phase>generate-sources</phase>
+							<configuration>
+								<workingDirectory>${project.basedir}/shopsweb</workingDirectory>
+								<executable>npm.cmd</executable>
+								<arguments>
+									<argument>install</argument>
+								</arguments>
+							</configuration>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>exec-npm-ng-build</id>
+							<phase>generate-sources</phase>
+							<configuration>
+								<workingDirectory>${project.basedir}/shopsweb</workingDirectory>
+								<executable>ng.cmd</executable>
+								<arguments>
+									<argument>build</argument>
+									<argument>--base-href=/shopsapp/ng/</argument>
+								</arguments>
+							</configuration>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+-->
 		<plugins>
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
+<!--
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>assembly.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+-->
 		</plugins>
+
 	</build>
 
 
