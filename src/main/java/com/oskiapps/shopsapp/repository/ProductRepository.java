@@ -7,7 +7,5 @@ import com.oskiapps.shopsapp.model.Product;
 
 @Service
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
-	Product findById(long id);
 	
 }

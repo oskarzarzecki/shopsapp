@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ShopsAppHeaderComponent } from './shops-app-header/shops-app-header.component';
-import { ShopsAppMainComponent } from './shops-app-main/shops-app-main.component';
-import { ShopsAppFooterComponent } from './shops-app-footer/shops-app-footer.component';
-import { AppRoutingModule } from '../app-routing.module';
+import { ShopsAppHeaderComponent } from './components/application/shops-app-header/shops-app-header.component';
+import { ShopsAppMainComponent } from './components/application/shops-app-main/shops-app-main.component';
+import { ShopsAppFooterComponent } from './components/application/shops-app-footer/shops-app-footer.component';
+import { ProductAuctionComponent } from './components/auctions/product-auction/product-auction.component';
+import { RouterModule } from '@angular/router';
 
 /**
  * ShopsAppModule - module containing shared components and services,
@@ -12,18 +13,20 @@ import { AppRoutingModule } from '../app-routing.module';
 @NgModule({
   imports: [
     CommonModule,
-    AppRoutingModule
+    RouterModule
   ],
   declarations: [
     ShopsAppHeaderComponent,
     ShopsAppMainComponent,
-    ShopsAppFooterComponent
+    ShopsAppFooterComponent,
+    ProductAuctionComponent
   ],
   exports: [
     CommonModule,
     ShopsAppHeaderComponent,
     ShopsAppMainComponent,
-    ShopsAppFooterComponent
+    ShopsAppFooterComponent,
+    ProductAuctionComponent
   ]
 })
 export class ShopsAppModule { }

@@ -1,23 +1,36 @@
 package com.oskiapps.shopsapp.model;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * The persistent class for the auction database table.
  * 
  */
 @Entity
-@NamedQuery(name="Auction.findAll", query="SELECT a FROM Auction a")
-public class Auction  {
-	private static final long serialVersionUID = 1L;
+@NamedQuery(name = "Auction.findAll", query = "SELECT a FROM Auction a")
+public class Auction {
+
+	public interface PromotedAuctionsView {
+	};
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private int active;
@@ -25,15 +38,15 @@ public class Auction  {
 	private int available;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_deleted")
+	@Column(name = "date_deleted")
 	private Date dateDeleted;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_from")
+	@Column(name = "date_from")
 	private Date dateFrom;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_to")
+	@Column(name = "date_to")
 	private Date dateTo;
 
 	private int deleted;
@@ -43,33 +56,34 @@ public class Auction  {
 
 	private String name;
 
-	@Column(name="price_brutto")
+	@Column(name = "price_brutto")
 	private BigDecimal priceBrutto;
 
-	@Column(name="price_netto")
+	@Column(name = "price_netto")
 	private BigDecimal priceNetto;
 
 	private int promoted;
 
-	//bi-directional many-to-one association to Product
+	// bi-directional many-to-one association to Product
 	@ManyToOne
 	private Product product;
 
-	//bi-directional many-to-one association to AuctionDeliveryOption
-	@OneToMany(mappedBy="auction")
+	// bi-directional many-to-one association to AuctionDeliveryOption
+	@OneToMany(mappedBy = "auction")
 	private List<AuctionDeliveryOption> auctionDeliveryOptions;
 
-	//bi-directional many-to-one association to CustomerBasketProduct
-	@OneToMany(mappedBy="auction")
+	// bi-directional many-to-one association to CustomerBasketProduct
+	@OneToMany(mappedBy = "auction")
 	private List<CustomerBasketProduct> customerBasketProducts;
 
-	//bi-directional many-to-one association to SoldProduct
-	@OneToMany(mappedBy="auction")
+	// bi-directional many-to-one association to SoldProduct
+	@OneToMany(mappedBy = "auction")
 	private List<SoldProduct> soldProducts;
 
 	public Auction() {
 	}
 
+	@JsonView(PromotedAuctionsView.class)
 	public long getId() {
 		return this.id;
 	}
@@ -126,6 +140,7 @@ public class Auction  {
 		this.deleted = deleted;
 	}
 
+	@JsonView(PromotedAuctionsView.class)
 	public String getDescription() {
 		return this.description;
 	}
@@ -134,6 +149,7 @@ public class Auction  {
 		this.description = description;
 	}
 
+	@JsonView(PromotedAuctionsView.class)
 	public String getName() {
 		return this.name;
 	}
@@ -142,6 +158,7 @@ public class Auction  {
 		this.name = name;
 	}
 
+	@JsonView(PromotedAuctionsView.class)
 	public BigDecimal getPriceBrutto() {
 		return this.priceBrutto;
 	}
