@@ -1,23 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HeaderTopRightComponent } from './header/header-top-right/header-top-right.component';
-import { ShopMainSiteComponent } from './shop-main/shop-main-site/shop-main-site.component';
-import { ShopAuctionComponent } from './shop-main/shop-auction/shop-auction.component';
+import { ShopCustomerComponent } from './components/shop-customer/shop-customer.component';
+import { ShopMainComponent } from './components/shop-main/shop-main.component';
+import { ShopStartPageComponent } from './components/shop-main/shop-start-page/shop-start-page.component';
+import { ShopAuctionComponent } from './components/shop-main/shop-auction/shop-auction.component';
+import { ShopProductsListComponent } from './components/shop-main/shop-products-list/shop-products-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HeaderTopRightComponent,
-    outlet: 'header-top-right'
-  },
-  {
-    path: '',
-    component: ShopMainSiteComponent,
-    outlet: 'main-site-content'
-  },
-  {
-    path: 'auction/:idAuction',
-    component: ShopAuctionComponent
+    component: ShopCustomerComponent,
+    children: [
+      {
+        path: '',
+        component: ShopMainComponent,
+        children: [
+          { path: '', component: ShopStartPageComponent },
+          { path: 'auction/:id', component: ShopAuctionComponent },
+          { path: 'list/:id', component: ShopProductsListComponent },
+        ]
+      }
+    ]
   }
 ];
 

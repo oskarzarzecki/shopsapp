@@ -8,8 +8,9 @@
     "moduleResolution": "node",
     "paths": {
       "src/app/*": [
-        "src/app/*"
-      ]
+        "src/app/*",
+      ],
+      "tslib" : ["./node_modules/tslib/tslib.d.ts"]
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

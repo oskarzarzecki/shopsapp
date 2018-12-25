@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ShopManagementLoginComponent } from './shop-management-login/shop-management-login.component';
-import { HeaderTopRightComponent } from './header/header-top-right/header-top-right.component';
+import { ShopManagementComponent } from './components/shop-management/shop-management.component';
+import { ManagementMainComponent } from './components/management-main/management-main.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HeaderTopRightComponent,
-    outlet: 'header-top-right'
-  },
-  {
-    path: '',
-    component: ShopManagementLoginComponent,
-    outlet: 'main-site-content'
+    component: ShopManagementComponent,
+    children: [
+      {
+        path: '',
+        component: ManagementMainComponent,
+        children: [
+        ]
+      }
+    ]
   }
 ];
 

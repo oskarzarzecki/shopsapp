@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShopsAppHeaderComponent } from './components/application/shops-app-header/shops-app-header.component';
-import { ShopsAppMainComponent } from './components/application/shops-app-main/shops-app-main.component';
 import { ShopsAppFooterComponent } from './components/application/shops-app-footer/shops-app-footer.component';
-import { ProductAuctionComponent } from './components/auctions/product-auction/product-auction.component';
 import { RouterModule } from '@angular/router';
+import { ShopsAppLogoComponent } from './components/application/shops-app-header/shops-app-logo/shops-app-logo.component';
 
 /**
  * ShopsAppModule - module containing shared components and services,
@@ -17,16 +16,14 @@ import { RouterModule } from '@angular/router';
   ],
   declarations: [
     ShopsAppHeaderComponent,
-    ShopsAppMainComponent,
     ShopsAppFooterComponent,
-    ProductAuctionComponent
+    ShopsAppLogoComponent
   ],
   exports: [
     CommonModule,
     ShopsAppHeaderComponent,
-    ShopsAppMainComponent,
     ShopsAppFooterComponent,
-    ProductAuctionComponent
+    ShopsAppLogoComponent
   ]
 })
 export class ShopsAppModule { }
