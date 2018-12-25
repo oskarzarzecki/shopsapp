@@ -1,7 +1,7 @@
 import { Component, OnInit, QueryList, AfterViewInit, ViewChildren } from '@angular/core';
 import { PromotedProductsService } from '../../../../services/shop-main/start-page/promoted-list/promoted-products.service';
 import { PromotedAuction } from '../../../../services/shop-main/start-page/promoted-list/promoted-auction';
-import { PromotedAuctionComponent } from './product-auction/promoted-auction.component';
+import { PromotedAuctionComponent } from './promoted-auction/promoted-auction.component';
 
 
 @Component({

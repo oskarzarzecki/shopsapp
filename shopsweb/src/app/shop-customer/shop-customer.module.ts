@@ -10,9 +10,9 @@ import { ShopAuctionComponent } from './components/shop-main/shop-auction/shop-a
 import { ShopsAppModule } from '../shops-app/shops-app.module';
 import { ShopCustomerComponent } from './components/shop-customer/shop-customer.component';
 import { ShopMainComponent } from './components/shop-main/shop-main.component';
-import { PromotedAuctionComponent } from './components/shop-main/shop-start-page/promoted-list/product-auction/promoted-auction.component';
 import { NavbarComponent } from './components/header/navbar/navbar.component';
 import { ShopProductsListComponent } from './components/shop-main/shop-products-list/shop-products-list.component';
+import { PromotedAuctionComponent } from './components/shop-main/shop-start-page/promoted-list/promoted-auction/promoted-auction.component';
 
 /**
  * ShopCustomerModule - main shop website, module intended for making orders by customers
