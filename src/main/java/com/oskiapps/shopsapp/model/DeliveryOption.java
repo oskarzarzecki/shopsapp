@@ -1,52 +1,69 @@
 package com.oskiapps.shopsapp.model;
 
-import java.io.Serializable;
-import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.oskiapps.shopsapp.model.Auction.Views.AuctionForUserData;
 
 /**
  * The persistent class for the delivery_option database table.
  * 
  */
 @Entity
-@Table(name="delivery_option")
-@NamedQuery(name="DeliveryOption.findAll", query="SELECT d FROM DeliveryOption d")
-public class DeliveryOption  {
+@Table(name = "delivery_option")
+@NamedQuery(name = "DeliveryOption.findAll", query = "SELECT d FROM DeliveryOption d")
+public class DeliveryOption {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private int available;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_deleted")
+	@Column(name = "date_deleted")
 	private Date dateDeleted;
 
 	private int deleted;
 
 	private String name;
 
-	@Column(name="time_from")
+	private BigDecimal price;
+
+	@Column(name = "time_from")
 	private int timeFrom;
 
-	@Column(name="time_to")
+	@Column(name = "time_to")
 	private int timeTo;
 
-	//bi-directional many-to-one association to AuctionDeliveryOption
-	@OneToMany(mappedBy="deliveryOption")
+	// bi-directional many-to-one association to AuctionDeliveryOption
+	@OneToMany(mappedBy = "deliveryOption")
 	private List<AuctionDeliveryOption> auctionDeliveryOptions;
 
-	//bi-directional many-to-one association to CustomerOrder
-	@OneToMany(mappedBy="deliveryOption")
+	// bi-directional many-to-one association to CustomerOrder
+	@OneToMany(mappedBy = "deliveryOption")
 	private List<CustomerOrder> customerOrders;
 
-	//bi-directional many-to-one association to PaymentOption
+	// bi-directional many-to-one association to PaymentOption
 	@ManyToOne
-	@JoinColumn(name="payment_option_id")
+	@JoinColumn(name = "payment_option_id")
+	@JsonView(AuctionForUserData.class)
 	private PaymentOption paymentOption;
 
 	public DeliveryOption() {
@@ -84,6 +101,7 @@ public class DeliveryOption  {
 		this.deleted = deleted;
 	}
 
+	@JsonView(AuctionForUserData.class)
 	public String getName() {
 		return this.name;
 	}
@@ -92,6 +110,16 @@ public class DeliveryOption  {
 		this.name = name;
 	}
 
+	@JsonView(AuctionForUserData.class)
+	public BigDecimal getPrice() {
+		return this.price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	@JsonView(AuctionForUserData.class)
 	public int getTimeFrom() {
 		return this.timeFrom;
 	}
@@ -100,6 +128,7 @@ public class DeliveryOption  {
 		this.timeFrom = timeFrom;
 	}
 
+	@JsonView(AuctionForUserData.class)
 	public int getTimeTo() {
 		return this.timeTo;
 	}

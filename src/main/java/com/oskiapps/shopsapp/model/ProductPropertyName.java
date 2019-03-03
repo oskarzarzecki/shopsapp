@@ -1,37 +1,48 @@
 package com.oskiapps.shopsapp.model;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.oskiapps.shopsapp.model.Auction.Views.AuctionForUserData;
 
 /**
  * The persistent class for the product_property_name database table.
  * 
  */
 @Entity
-@Table(name="product_property_name")
-@NamedQuery(name="ProductPropertyName.findAll", query="SELECT p FROM ProductPropertyName p")
-public class ProductPropertyName  {
+@Table(name = "product_property_name")
+@NamedQuery(name = "ProductPropertyName.findAll", query = "SELECT p FROM ProductPropertyName p")
+public class ProductPropertyName {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private int available;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_deleted")
+	@Column(name = "date_deleted")
 	private Date dateDeleted;
 
 	private int deleted;
 
 	private String name;
 
-	//bi-directional many-to-one association to ProductProperty
-	@OneToMany(mappedBy="productPropertyName")
+	// bi-directional many-to-one association to ProductProperty
+	@OneToMany(mappedBy = "productPropertyName")
 	private List<ProductProperty> productProperties;
 
 	public ProductPropertyName() {
@@ -69,6 +80,7 @@ public class ProductPropertyName  {
 		this.deleted = deleted;
 	}
 
+	@JsonView(AuctionForUserData.class)
 	public String getName() {
 		return this.name;
 	}

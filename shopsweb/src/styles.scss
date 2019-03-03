@@ -2,28 +2,19 @@
 
 /* Bootstrap customized  start */
 
+@import 'variables'; // my custom vars that overrides bootstrap
 @import "node_modules/bootstrap/scss/bootstrap";
-
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
-
-@import "node_modules/bootstrap/scss/reboot";
-@import "node_modules/bootstrap/scss/type";
-@import "node_modules/bootstrap/scss/images";
-@import "node_modules/bootstrap/scss/code";
-@import "node_modules/bootstrap/scss/grid";
 
 // buttons
 .btn > i {
   margin-right: 10px;
   margin-left: -5px;
-  font-size: 1.4em;
+  font-size: 1.0em;
 }
 
 // colors
 $theme-colors: (
-  "main-light": #f8f9fa,
+  "main-light": #edeff1,
   "main-dark": #27323d
 );
 
@@ -58,4 +49,18 @@ $theme-colors: (
   }
 }
 
-/* Bootstrap customized  end */
+/* Bootstrap customized end */
+
+/* Lightslider customized start */
+.lightslider-nav {
+  display: block;
+}
+/* Lightslider customized end */
+
+
+/* shop-customer start */
+.product-price {
+  font-size: 20px;
+  color: #333;
+}
+/* shop-customer end */

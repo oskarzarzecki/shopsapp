@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.oskiapps.shopsapp.engine.config.shopsapp.PromotedProductProperties;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.oskiapps.shopsapp.engine.config.properties.customer.PromotedProductProperties;
 import com.oskiapps.shopsapp.engine.utils.RandomSelector;
-import com.oskiapps.shopsapp.engine.utils.Utils;
+import com.oskiapps.shopsapp.engine.utils.ShopsappUtils;
 import com.oskiapps.shopsapp.model.Auction;
 import com.oskiapps.shopsapp.repository.AuctionRepository;
+import com.oskiapps.shopsapp.serializer.PromotedAuctionSerializer;
 
 @RestController
 @RequestMapping("/auctions")
@@ -40,14 +44,13 @@ public class AuctionController {
 		return auctionRepository.findById(id);
 	}
 
-	@RequestMapping("/get-all-auctions")
+	@GetMapping("/get-all-auctions")
 	public List<Auction> GetAllAuctions() {
 		return auctionRepository.findAll();
 	}
 
-	@JsonView(Auction.PromotedAuctionsView.class)
-	@RequestMapping("/get-promoted-auctions")
-	public List<Auction> getPromotedAuctions() {
+	@GetMapping(value = "/get-promoted-auctions", produces = { "application/JSON" })
+	public String getPromotedAuctions2() {
 
 		int descMaxLength = properties.getDescriptionMaxLength();
 		int itemsMaxCount = properties.getItemsCount();
@@ -62,10 +65,35 @@ public class AuctionController {
 		}
 
 		for (Auction auction : selectedAuctions) {
-			if (auction.getDescription().length() > descMaxLength)
-				auction.setDescription(Utils.getShortenedText(auction.getDescription(), descMaxLength));
+			if (auction.getDescriptionShort().length() > descMaxLength)
+				auction.setDescriptionShort(
+						ShopsappUtils.getShortenedText(auction.getDescriptionShort(), descMaxLength));
 		}
-		return selectedAuctions.subList(0, itemsMaxCount);
+		selectedAuctions = selectedAuctions.subList(0, itemsMaxCount);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		SimpleModule mod = new SimpleModule("PromotedAuction Module");
+
+		mod.addSerializer(new PromotedAuctionSerializer(Auction.class));
+
+		mapper.registerModule(mod);
+
+		String json = null;
+
+		try {
+			json = mapper.writeValueAsString(selectedAuctions);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return json;
+	}
+
+	@JsonView(Auction.Views.AuctionForUserData.class)
+	@GetMapping("/get-auction-for-user/{id}")
+	public Auction getAuctionDataForUser(@PathVariable Long id) {
+		return auctionRepository.getOne(id);
 	}
 
 }

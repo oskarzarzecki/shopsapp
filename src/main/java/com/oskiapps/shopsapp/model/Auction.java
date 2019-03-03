@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.oskiapps.shopsapp.model.Auction.Views.AuctionForUserData;
 
 /**
  * The persistent class for the auction database table.
@@ -26,7 +27,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 @NamedQuery(name = "Auction.findAll", query = "SELECT a FROM Auction a")
 public class Auction {
 
-	public interface PromotedAuctionsView {
+	public static class Views {
+		public interface AuctionForUserData {
+		}
 	};
 
 	@Id
@@ -53,6 +56,10 @@ public class Auction {
 
 	@Lob
 	private String description;
+
+	@Lob
+	@Column(name = "description_short")
+	private String descriptionShort;
 
 	private String name;
 
@@ -83,7 +90,7 @@ public class Auction {
 	public Auction() {
 	}
 
-	@JsonView(PromotedAuctionsView.class)
+	@JsonView({ AuctionForUserData.class })
 	public long getId() {
 		return this.id;
 	}
@@ -140,7 +147,7 @@ public class Auction {
 		this.deleted = deleted;
 	}
 
-	@JsonView(PromotedAuctionsView.class)
+	@JsonView(AuctionForUserData.class)
 	public String getDescription() {
 		return this.description;
 	}
@@ -149,7 +156,16 @@ public class Auction {
 		this.description = description;
 	}
 
-	@JsonView(PromotedAuctionsView.class)
+	@JsonView({ AuctionForUserData.class })
+	public String getDescriptionShort() {
+		return this.descriptionShort;
+	}
+
+	public void setDescriptionShort(String descriptionShort) {
+		this.descriptionShort = descriptionShort;
+	}
+
+	@JsonView({ AuctionForUserData.class })
 	public String getName() {
 		return this.name;
 	}
@@ -158,7 +174,7 @@ public class Auction {
 		this.name = name;
 	}
 
-	@JsonView(PromotedAuctionsView.class)
+	@JsonView({ AuctionForUserData.class })
 	public BigDecimal getPriceBrutto() {
 		return this.priceBrutto;
 	}
@@ -183,6 +199,7 @@ public class Auction {
 		this.promoted = promoted;
 	}
 
+	@JsonView(AuctionForUserData.class)
 	public Product getProduct() {
 		return this.product;
 	}
@@ -191,6 +208,7 @@ public class Auction {
 		this.product = product;
 	}
 
+	@JsonView(AuctionForUserData.class)
 	public List<AuctionDeliveryOption> getAuctionDeliveryOptions() {
 		return this.auctionDeliveryOptions;
 	}

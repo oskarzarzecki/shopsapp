@@ -1,3 +1,66 @@
-<p>
-  shop-auction works!
-</p>
+<div class="container bg-main-light mb-5">
+
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <div class="row preview-pic tab-content m-3">
+        <div
+          *ngFor="let img of auction?.product.productVariants[0].productImages; let first = first; let index = index;"
+          class="tab-pane col-md-10 offset-md-1" [ngClass]="{ 'active': first }" id="pic-{{index}}">
+          <img class="img-preview" src="{{img.id}}" /></div>
+      </div>
+
+      <div class="row">
+        <ul id="lightslider-photo" class="lightslider-nav nav nav-tabs">
+          <li class="photo-preview active" *ngFor="let img of auction?.product.productVariants[0].productImages; let first = first; let index = index;">
+            <a attr.data-target="#pic-{{index}}" data-toggle="tab"><img class="img-nav-tab" src="{{img.id}}" /></a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+      <h3 class="row m-2">{{auction?.product.name}}</h3>
+      <div class="row m-3">{{auction?.descriptionShort}} {{auction?.product.productVariants[0].productImages}}</div>
+      <div class="row">
+        <div class="col-md-5 align-self-center text-center">
+          <h4>{{auction?.priceBrutto}} {{config.currency}}</h4>
+        </div>
+        <div class="col-md-7 border-left">
+          <div *ngFor="let option of auction?.auctionDeliveryOptions"
+            class="row product-property pt-2 pb-2 mb-2 border-bottom">
+            <div class="col-md-6"><strong>{{option.name}}</strong></div>
+            <div class="col-md-4">{{option.price}} {{config.currency}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="col-md-3 col-10 offset-md-2 offset-1 mt-md-4 mt-2 btn btn-success">
+          <i class="fa-cart-plus fa fa-1x"></i>Buy now
+        </button>
+        <button class="col-md-3 col-10 offset-md-2 offset-1 mt-md-4 mt-2 btn btn-secondary">
+          <i class="fa-cart-plus fa fa-1x"></i>Add
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row pt-4 pb-4">
+
+    <ng-container
+      *ngFor="let property of auction?.product.productPropertyValues; let i = index; let first=first; let last=last;">
+
+      <div class="col-md-3 col-6 mb-3"><strong>{{property.name}}</strong></div>
+      <div class="col-md-3 col-6 mb-3">{{property.description}}</div>
+
+    </ng-container>
+
+  </div>
+
+</div>

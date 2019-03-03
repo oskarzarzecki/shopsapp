@@ -1,6 +1,8 @@
 export class PromotedAuction {
     id: number;
     name: string;
-    description: string;
+    descriptionShort: string;
     priceBrutto: number;
+    idProduct: number;
+    idImage: string;
 }

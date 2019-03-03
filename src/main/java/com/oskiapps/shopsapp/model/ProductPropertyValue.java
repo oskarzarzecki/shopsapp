@@ -1,41 +1,58 @@
 package com.oskiapps.shopsapp.model;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.oskiapps.shopsapp.model.Auction.Views.AuctionForUserData;
 
 /**
  * The persistent class for the product_property_value database table.
  * 
  */
 @Entity
-@Table(name="product_property_value")
-@NamedQuery(name="ProductPropertyValue.findAll", query="SELECT p FROM ProductPropertyValue p")
-public class ProductPropertyValue  {
+@Table(name = "product_property_value")
+@NamedQuery(name = "ProductPropertyValue.findAll", query = "SELECT p FROM ProductPropertyValue p")
+public class ProductPropertyValue {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private int available;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_deleted")
+	@Column(name = "date_deleted")
 	private Date dateDeleted;
 
 	private int deleted;
 
+	@Lob
+	private String description;
+
 	private String value;
 
-	//bi-directional many-to-one association to Product
+	// bi-directional many-to-one association to Product
 	@ManyToOne
 	private Product product;
 
-	//bi-directional many-to-one association to ProductProperty
+	// bi-directional many-to-one association to ProductProperty
 	@ManyToOne
-	@JoinColumn(name="property_id")
+	@JoinColumn(name = "property_id")
 	private ProductProperty productProperty;
 
 	public ProductPropertyValue() {
@@ -73,6 +90,15 @@ public class ProductPropertyValue  {
 		this.deleted = deleted;
 	}
 
+	@JsonView(AuctionForUserData.class)
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getValue() {
 		return this.value;
 	}
@@ -89,6 +115,8 @@ public class ProductPropertyValue  {
 		this.product = product;
 	}
 
+	@JsonUnwrapped
+	@JsonView(AuctionForUserData.class)
 	public ProductProperty getProductProperty() {
 		return this.productProperty;
 	}

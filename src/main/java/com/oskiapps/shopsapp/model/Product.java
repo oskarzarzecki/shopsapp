@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.oskiapps.shopsapp.model.Auction.Views.AuctionForUserData;
 
 /**
  * The persistent class for the product database table.
@@ -67,7 +69,6 @@ public class Product {
 
 	// bi-directional many-to-one association to ProductPropertyValue
 	@OneToMany(mappedBy = "product")
-	@JsonIgnore
 	private List<ProductPropertyValue> productPropertyValues;
 
 	// bi-directional many-to-one association to ProductVariant
@@ -83,6 +84,7 @@ public class Product {
 	public Product() {
 	}
 
+	@JsonView({ AuctionForUserData.class })
 	public long getId() {
 		return this.id;
 	}
@@ -123,6 +125,7 @@ public class Product {
 		this.description = description;
 	}
 
+	@JsonView(AuctionForUserData.class)
 	public String getName() {
 		return this.name;
 	}
@@ -191,6 +194,7 @@ public class Product {
 		this.vatRate = vatRate;
 	}
 
+	@JsonView(AuctionForUserData.class)
 	public List<ProductPropertyValue> getProductPropertyValues() {
 		return this.productPropertyValues;
 	}
@@ -213,6 +217,7 @@ public class Product {
 		return productPropertyValue;
 	}
 
+	@JsonView({ AuctionForUserData.class })
 	public List<ProductVariant> getProductVariants() {
 		return this.productVariants;
 	}

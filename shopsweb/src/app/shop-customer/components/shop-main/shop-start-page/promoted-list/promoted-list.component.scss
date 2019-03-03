@@ -1,11 +1,6 @@
 .product-card {
     max-width: 251px;
-}
-
-.product-price {
-    font-size: 20px;
-    margin: 0 auto;
-    color: #333;
+    max-height: 500px;
 }
 
 .product-card:hover {
@@ -15,4 +10,9 @@
 
 .card-text {
     font-size: 0.8rem;
+}
+
+.product-card-img {
+    object-fit: contain;
+    max-height: 30%;
 }

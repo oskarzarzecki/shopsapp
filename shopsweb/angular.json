@@ -44,6 +44,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "baseHref": "#base-href#",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -56,7 +57,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "shops-web:build"
+            "browserTarget": "shops-web:build",
+            "baseHref": "/",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {

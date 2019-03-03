@@ -23,6 +23,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<commons-io.version>2.6</commons-io.version>
 	</properties>
 
 	<profiles>
@@ -88,12 +89,19 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		
+		
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        
 	</dependencies>
 
 	<build>

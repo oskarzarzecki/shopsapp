@@ -1,7 +1,9 @@
 import { Component, OnInit, QueryList, AfterViewInit, ViewChildren } from '@angular/core';
-import { PromotedProductsService } from '../../../../services/shop-main/start-page/promoted-list/promoted-products.service';
+import { PromotedAuctionService } from '../../../../services/shop-main/start-page/promoted-list/promoted-auction.service';
 import { PromotedAuction } from '../../../../services/shop-main/start-page/promoted-list/promoted-auction';
 import { PromotedAuctionComponent } from './promoted-auction/promoted-auction.component';
+import { AuctionForUserService } from 'src/app/shop-customer/services/shop-main/auction/auction-for-user.service';
+import { ConfigService } from 'src/app/config/config.service';
 
 
 @Component({
@@ -15,8 +17,10 @@ export class PromotedListComponent implements OnInit, AfterViewInit {
   auctionsComponenets: QueryList<PromotedAuctionComponent>;
 
   auctions: PromotedAuction[];
+  productImage: File;
 
-  constructor(private promotedProductsService: PromotedProductsService) { }
+  constructor(private promotedAuctionService: PromotedAuctionService,private auctionForUserService: AuctionForUserService,
+    private config: ConfigService) { }
 
   ngOnInit() {
     this.getItems();
@@ -24,13 +28,16 @@ export class PromotedListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     let cc: PromotedAuctionComponent[] = this.auctionsComponenets.toArray();
-    this.auctionsComponenets.changes.subscribe(c => {console.log(c.toArray()[1])});
+    this.auctionsComponenets.changes.subscribe(c => { console.log(c.toArray()[1]) });
   }
 
   getItems(): void {
-    this.promotedProductsService.getPromotedAuctions().subscribe(
+    this.promotedAuctionService.getPromotedAuctions().subscribe(
       result => {
         this.auctions = result;
+        this.auctions.forEach(auction => {
+          auction.idImage = this.auctionForUserService.getProductImageLink(auction.idProduct, auction.idImage);
+        });
         console.log(this.auctions);
       }
     );
