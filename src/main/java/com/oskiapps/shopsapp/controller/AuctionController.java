@@ -50,7 +50,7 @@ public class AuctionController {
 	}
 
 	@GetMapping(value = "/get-promoted-auctions", produces = { "application/JSON" })
-	public String getPromotedAuctions2() {
+	public String getPromotedAuctions() {
 
 		int descMaxLength = properties.getDescriptionMaxLength();
 		int itemsMaxCount = properties.getItemsCount();
@@ -90,8 +90,8 @@ public class AuctionController {
 		return json;
 	}
 
-	@JsonView(Auction.Views.AuctionForUserData.class)
 	@GetMapping("/get-auction-for-user/{id}")
+	@JsonView(Auction.Views.AuctionForUserData.class)
 	public Auction getAuctionDataForUser(@PathVariable Long id) {
 		return auctionRepository.getOne(id);
 	}

@@ -13,6 +13,7 @@ import { ShopMainComponent } from './components/shop-main/shop-main.component';
 import { NavbarComponent } from './components/header/navbar/navbar.component';
 import { ShopProductsListComponent } from './components/shop-main/shop-products-list/shop-products-list.component';
 import { PromotedAuctionComponent } from './components/shop-main/shop-start-page/promoted-list/promoted-auction/promoted-auction.component';
+import { NavbarItemComponent } from './components/header/navbar/navbar-item/navbar-item.component';
 
 /**
  * ShopCustomerModule - main shop website, module intended for making orders by customers
@@ -33,7 +34,8 @@ import { PromotedAuctionComponent } from './components/shop-main/shop-start-page
     ShopMainComponent,
     PromotedAuctionComponent,
     NavbarComponent,
-    ShopProductsListComponent
+    ShopProductsListComponent,
+    NavbarItemComponent
   ]
 })
 export class ShopCustomerModule { }

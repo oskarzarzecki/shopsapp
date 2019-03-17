@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit, Inject, Renderer2 } from '@angular/core';
-import { AuctionForUserService } from 'src/app/shop-customer/services/shop-main/auction/auction-for-user.service';
-import { AuctionForUser } from 'src/app/shop-customer/services/shop-main/auction/auction-for-user';
+import { Component, OnInit, Inject, Renderer2 } from '@angular/core';
+import { AuctionForUserService } from 'src/app/shop-customer/services/shop-main/shop-auction/auction-for-user.service';
+import { AuctionForUser } from 'src/app/shop-customer/services/shop-main/shop-auction/auction-for-user';
 import { ActivatedRoute } from '@angular/router';
 import { ConfigService } from 'src/app/config/config.service';
 import { DOCUMENT } from '@angular/platform-browser';

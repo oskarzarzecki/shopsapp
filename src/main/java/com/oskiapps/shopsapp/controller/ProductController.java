@@ -37,7 +37,7 @@ public class ProductController {
 	private ProductImageRepository productImageRepository;
 
 	@GetMapping("")
-	public List<Product> listPosts() {
+	public List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
 

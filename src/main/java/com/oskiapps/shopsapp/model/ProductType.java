@@ -16,26 +16,31 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonView;
+import com.oskiapps.shopsapp.model.ProductType.Views.AllProductTypesWithCategories;
 
 /**
  * The persistent class for the product_type database table.
  * 
  */
 @Entity
-@Table(name="product_type")
-@NamedQuery(name="ProductType.findAll", query="SELECT p FROM ProductType p")
-public class ProductType  {
-	private static final long serialVersionUID = 1L;
+@Table(name = "product_type")
+@NamedQuery(name = "ProductType.findAll", query = "SELECT p FROM ProductType p")
+public class ProductType {
+
+	public static class Views {
+		public interface AllProductTypesWithCategories {
+		}
+	};
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private int available;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_deleted")
+	@Column(name = "date_deleted")
 	private Date dateDeleted;
 
 	private int deleted;
@@ -45,19 +50,20 @@ public class ProductType  {
 
 	private String name;
 
-	//bi-directional many-to-one association to ProductCategory
-	@OneToMany(mappedBy="productType")
+	// bi-directional many-to-one association to ProductCategory
+	@OneToMany(mappedBy = "productType")
 	@JsonIgnore
 	private List<ProductCategory> productCategories;
 
-	//bi-directional many-to-one association to ProductTypeImage
-	@OneToMany(mappedBy="productType")
+	// bi-directional many-to-one association to ProductTypeImage
+	@OneToMany(mappedBy = "productType")
 	@JsonIgnore
 	private List<ProductTypeImage> productTypeImages;
 
 	public ProductType() {
 	}
 
+	@JsonView(AllProductTypesWithCategories.class)
 	public long getId() {
 		return this.id;
 	}
@@ -98,6 +104,7 @@ public class ProductType  {
 		this.description = description;
 	}
 
+	@JsonView(AllProductTypesWithCategories.class)
 	public String getName() {
 		return this.name;
 	}
@@ -106,6 +113,7 @@ public class ProductType  {
 		this.name = name;
 	}
 
+	@JsonView(AllProductTypesWithCategories.class)
 	public List<ProductCategory> getProductCategories() {
 		return this.productCategories;
 	}

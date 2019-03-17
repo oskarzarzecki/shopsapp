@@ -2,7 +2,7 @@ import { Component, OnInit, QueryList, AfterViewInit, ViewChildren } from '@angu
 import { PromotedAuctionService } from '../../../../services/shop-main/start-page/promoted-list/promoted-auction.service';
 import { PromotedAuction } from '../../../../services/shop-main/start-page/promoted-list/promoted-auction';
 import { PromotedAuctionComponent } from './promoted-auction/promoted-auction.component';
-import { AuctionForUserService } from 'src/app/shop-customer/services/shop-main/auction/auction-for-user.service';
+import { AuctionForUserService } from 'src/app/shop-customer/services/shop-main/shop-auction/auction-for-user.service';
 import { ConfigService } from 'src/app/config/config.service';
 
 
@@ -11,7 +11,7 @@ import { ConfigService } from 'src/app/config/config.service';
   templateUrl: './promoted-list.component.html',
   styleUrls: ['./promoted-list.component.scss']
 })
-export class PromotedListComponent implements OnInit, AfterViewInit {
+export class PromotedListComponent implements OnInit {
 
   @ViewChildren(PromotedAuctionComponent)
   auctionsComponenets: QueryList<PromotedAuctionComponent>;
@@ -19,16 +19,11 @@ export class PromotedListComponent implements OnInit, AfterViewInit {
   auctions: PromotedAuction[];
   productImage: File;
 
-  constructor(private promotedAuctionService: PromotedAuctionService,private auctionForUserService: AuctionForUserService,
+  constructor(private promotedAuctionService: PromotedAuctionService, private auctionForUserService: AuctionForUserService,
     private config: ConfigService) { }
 
   ngOnInit() {
     this.getItems();
-  }
-
-  ngAfterViewInit(): void {
-    let cc: PromotedAuctionComponent[] = this.auctionsComponenets.toArray();
-    this.auctionsComponenets.changes.subscribe(c => { console.log(c.toArray()[1]) });
   }
 
   getItems(): void {

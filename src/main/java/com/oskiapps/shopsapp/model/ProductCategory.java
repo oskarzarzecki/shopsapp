@@ -1,29 +1,42 @@
 package com.oskiapps.shopsapp.model;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.oskiapps.shopsapp.model.ProductType.Views.AllProductTypesWithCategories;
 
 /**
  * The persistent class for the product_category database table.
  * 
  */
 @Entity
-@Table(name="product_category")
-@NamedQuery(name="ProductCategory.findAll", query="SELECT p FROM ProductCategory p")
-public class ProductCategory  {
-	private static final long serialVersionUID = 1L;
+@Table(name = "product_category")
+@NamedQuery(name = "ProductCategory.findAll", query = "SELECT p FROM ProductCategory p")
+public class ProductCategory {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private int available;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_deleted")
+	@Column(name = "date_deleted")
 	private Date dateDeleted;
 
 	private int deleted;
@@ -33,26 +46,27 @@ public class ProductCategory  {
 
 	private String name;
 
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="productCategory")
+	// bi-directional many-to-one association to Product
+	@OneToMany(mappedBy = "productCategory")
 	private List<Product> products;
 
-	//bi-directional many-to-one association to ProductType
+	// bi-directional many-to-one association to ProductType
 	@ManyToOne
-	@JoinColumn(name="product_type_id")
+	@JoinColumn(name = "product_type_id")
 	private ProductType productType;
 
-	//bi-directional many-to-one association to ProductCategoryImage
-	@OneToMany(mappedBy="productCategory")
+	// bi-directional many-to-one association to ProductCategoryImage
+	@OneToMany(mappedBy = "productCategory")
 	private List<ProductCategoryImage> productCategoryImages;
 
-	//bi-directional many-to-one association to ProductProperty
-	@OneToMany(mappedBy="productCategory")
+	// bi-directional many-to-one association to ProductProperty
+	@OneToMany(mappedBy = "productCategory")
 	private List<ProductProperty> productProperties;
 
 	public ProductCategory() {
 	}
 
+	@JsonView(AllProductTypesWithCategories.class)
 	public long getId() {
 		return this.id;
 	}
@@ -93,6 +107,7 @@ public class ProductCategory  {
 		this.description = description;
 	}
 
+	@JsonView(AllProductTypesWithCategories.class)
 	public String getName() {
 		return this.name;
 	}
