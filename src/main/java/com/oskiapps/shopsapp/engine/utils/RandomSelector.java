@@ -3,7 +3,7 @@ package com.oskiapps.shopsapp.engine.utils;
 import java.util.List;
 import java.util.Random;
 
-import com.oskiapps.shopsapp.model.Auction;
+import com.oskiapps.shopsapp.model.entities.Auction;
 
 public class RandomSelector {
 

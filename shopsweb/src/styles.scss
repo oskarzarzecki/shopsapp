@@ -23,6 +23,33 @@ $theme-colors: (
   @include bg-variant('.bg-#{$color}', $value);
 }
 
+// Width and height
+
+.mh-20 { max-height: 20% !important; }
+
+// sizes
+
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$sizes: map-merge(
+  (
+    25: 25%,
+    50: 50%,
+    75: 75%,
+    80: 80%,
+    100: 100%,
+    auto: auto
+  ),
+  $sizes
+);
+
+@each $prop, $abbrev in (width: w, height: h) {
+  @each $size, $length in $sizes {
+    .#{$abbrev}-#{$size} { #{$prop}: $length !important; }
+  }
+}
+
 // border breakpoints
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint) {

@@ -4,7 +4,8 @@ import { ShopCustomerComponent } from './components/shop-customer/shop-customer.
 import { ShopMainComponent } from './components/shop-main/shop-main.component';
 import { ShopStartPageComponent } from './components/shop-main/shop-start-page/shop-start-page.component';
 import { ShopAuctionComponent } from './components/shop-main/shop-auction/shop-auction.component';
-import { ShopProductsListComponent } from './components/shop-main/shop-products-list/shop-products-list.component';
+import { ShopAuctionsListComponent } from './components/shop-main/shop-auctions-list/shop-auctions-list.component';
+import { ShopMainLargeComponent } from './components/shop-main-large/shop-main-large.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,13 @@ const routes: Routes = [
         children: [
           { path: '', component: ShopStartPageComponent },
           { path: 'auction/:id', component: ShopAuctionComponent },
-          { path: 'list/:id', component: ShopProductsListComponent },
+        ]
+      },
+      {
+        path: '',
+        component: ShopMainLargeComponent,
+        children: [
+          { path: 'list/:id_category/:page', component: ShopAuctionsListComponent },
         ]
       }
     ]

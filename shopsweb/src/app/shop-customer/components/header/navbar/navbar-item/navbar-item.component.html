@@ -2,6 +2,6 @@
   <a class="nav-link dropdown" href="" id="" data-toggle="dropdown" aria-haspopup="true"
     aria-expanded="false">{{productType.name}}</a>
   <div class="dropdown-menu">
-    <a class="dropdown-item" routerLink="/list/{{category.id}}" *ngFor="let category of productType.productCategories">{{category.name}}</a>
+    <a class="dropdown-item" routerLink="/list/{{category.id}}/0" *ngFor="let category of productType.productCategories">{{category.name}}</a>
   </div>
 </li>

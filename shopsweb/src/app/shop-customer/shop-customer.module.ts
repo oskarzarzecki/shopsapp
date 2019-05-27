@@ -11,9 +11,10 @@ import { ShopsAppModule } from '../shops-app/shops-app.module';
 import { ShopCustomerComponent } from './components/shop-customer/shop-customer.component';
 import { ShopMainComponent } from './components/shop-main/shop-main.component';
 import { NavbarComponent } from './components/header/navbar/navbar.component';
-import { ShopProductsListComponent } from './components/shop-main/shop-products-list/shop-products-list.component';
-import { PromotedAuctionComponent } from './components/shop-main/shop-start-page/promoted-list/promoted-auction/promoted-auction.component';
 import { NavbarItemComponent } from './components/header/navbar/navbar-item/navbar-item.component';
+import { ShopAuctionsListComponent } from './components/shop-main/shop-auctions-list/shop-auctions-list.component';
+import { AuctionCardComponent } from './components/shared/auction-card/auction-card.component';
+import { ShopMainLargeComponent } from './components/shop-main-large/shop-main-large.component';
 
 /**
  * ShopCustomerModule - main shop website, module intended for making orders by customers
@@ -32,10 +33,11 @@ import { NavbarItemComponent } from './components/header/navbar/navbar-item/navb
     ShopAuctionComponent,
     ShopCustomerComponent,
     ShopMainComponent,
-    PromotedAuctionComponent,
     NavbarComponent,
-    ShopProductsListComponent,
-    NavbarItemComponent
+    ShopAuctionsListComponent,
+    NavbarItemComponent,
+    AuctionCardComponent,
+    ShopMainLargeComponent
   ]
 })
 export class ShopCustomerModule { }

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.oskiapps.shopsapp.model.Auction;
+import com.oskiapps.shopsapp.model.entities.Auction;
 
 public class PromotedAuctionSerializer extends StdSerializer<Auction> {
 

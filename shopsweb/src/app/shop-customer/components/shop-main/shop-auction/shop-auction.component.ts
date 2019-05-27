@@ -25,7 +25,6 @@ export class ShopAuctionComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
-
   }
 
   getData(): void {
@@ -34,9 +33,6 @@ export class ShopAuctionComponent implements OnInit {
       result => {
         this.auction = result;
         this.idVariant = this.auction.product.productVariants[0].id;
-        this.auction.product.productVariants[0].productImages.forEach(img => {
-          img.id = this.auctionForUserService.getProductImageLink(this.auction.product.id, img.id);
-        });
 
         let script = this._renderer2.createElement('script');
         script.type = `text/javascript`;

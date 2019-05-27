@@ -1,31 +1,6 @@
 <div class="row justify-content-around align-items-left">
 
-  <shop-promoted-auction *ngFor="let auction of auctions" class="card product-card mb-5">
-
-    <img class="card-img-top product-card-img" src="{{auction.idImage}}" alt="...">
-
-    <div class="d-flex align-items-center justify-content-center">
-      <div class="mt-3">
-        <a class="text-dark" routerLink="/auction/{{auction.id}}">
-          <h5 class="card-title">{{auction.name}}</h5>
-        </a>
-      </div>
-    </div>
-
-    <div class="card-body">
-      <p class="card-text text-justify">{{auction.descriptionShort}}</p>
-      <div class="">
-        <hr>
-        <div class="product-price mb-2">{{auction.priceBrutto}} {{config.currency}}</div>
-        <div class="row justify-content-around">
-          <button class="col-md-5 col-10 btn btn-success">
-            <i class="fa-cart-plus fa fa-1x"></i>Add</button>
-          <button class="col-md-5 col-10 btn btn-secondary mt-2 mt-md-0" routerLink="/auction/{{auction.id}}">
-            <i class="fa-align-left fa fa-1x"></i>Details</button>
-        </div>
-      </div>
-    </div>
-
-  </shop-promoted-auction>
+  <shop-auction-card *ngFor="let auction of auctions" class="" [auction]="auction">
+  </shop-auction-card>
 
 </div>

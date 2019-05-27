@@ -1,8 +1,8 @@
 package com.oskiapps.shopsapp.engine.utils;
 
 import java.io.File;
-
-import javax.activation.MimetypesFileTypeMap;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class ShopsappUtils {
 
@@ -13,7 +13,12 @@ public class ShopsappUtils {
 
 	public static String getMimeType(String filePath) {
 		File file = new File(filePath);
-		String mimetype = new MimetypesFileTypeMap().getContentType(file);
+		String mimetype = "application/octet-stream";
+		try {
+			mimetype = Files.probeContentType(file.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return mimetype;
 	}
 

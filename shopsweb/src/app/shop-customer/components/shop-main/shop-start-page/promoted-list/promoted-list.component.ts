@@ -1,9 +1,7 @@
 import { Component, OnInit, QueryList, AfterViewInit, ViewChildren } from '@angular/core';
-import { PromotedAuctionService } from '../../../../services/shop-main/start-page/promoted-list/promoted-auction.service';
-import { PromotedAuction } from '../../../../services/shop-main/start-page/promoted-list/promoted-auction';
-import { PromotedAuctionComponent } from './promoted-auction/promoted-auction.component';
+import { PromotedAuctionService } from '../../../../services/shop-main/shop-start-page/promoted-auction.service';
+import { AuctionInCard } from '../../../../services/shop-main/auction-in-card';
 import { AuctionForUserService } from 'src/app/shop-customer/services/shop-main/shop-auction/auction-for-user.service';
-import { ConfigService } from 'src/app/config/config.service';
 
 
 @Component({
@@ -13,14 +11,9 @@ import { ConfigService } from 'src/app/config/config.service';
 })
 export class PromotedListComponent implements OnInit {
 
-  @ViewChildren(PromotedAuctionComponent)
-  auctionsComponenets: QueryList<PromotedAuctionComponent>;
+  auctions: AuctionInCard[];
 
-  auctions: PromotedAuction[];
-  productImage: File;
-
-  constructor(private promotedAuctionService: PromotedAuctionService, private auctionForUserService: AuctionForUserService,
-    private config: ConfigService) { }
+  constructor(private promotedAuctionService: PromotedAuctionService, private auctionForUserService: AuctionForUserService) { }
 
   ngOnInit() {
     this.getItems();
@@ -30,9 +23,6 @@ export class PromotedListComponent implements OnInit {
     this.promotedAuctionService.getPromotedAuctions().subscribe(
       result => {
         this.auctions = result;
-        this.auctions.forEach(auction => {
-          auction.idImage = this.auctionForUserService.getProductImageLink(auction.idProduct, auction.idImage);
-        });
         console.log(this.auctions);
       }
     );

@@ -1,0 +1,13 @@
+<app-abstract-list>
+
+  <div list class="row justify-content-around align-items-left">
+    <shop-auction-card *ngFor="let auction of (listData$ | async)?.items" class="" [auction]="auction">
+    </shop-auction-card>
+  </div>
+
+  <div pagination class="row justify-content-around align-items-right mb-4">
+    <app-pagination [paginationData]="(listData$ | async)?.paginationData" [basePath]="getBasePath()"
+      [currentPage]="page"></app-pagination>
+  </div>
+
+</app-abstract-list>
