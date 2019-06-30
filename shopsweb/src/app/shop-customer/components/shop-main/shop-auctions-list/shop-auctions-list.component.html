@@ -1,13 +1,33 @@
 <app-abstract-list>
 
-  <div list class="row justify-content-around align-items-left">
+  <div sort class="row mb-4">
+    <div class="col-1">
+      <h4>Sort</h4>
+    </div>
+    <div class="col-11">
+      <div class="row">
+        <button class="btn btn-outline-secondary mr-2" (click)="sortList(PRICE_SORT)"
+          [class.active]="priceSort == 'ASC' || priceSort == 'DESC'"><i class=" fa fa-1x"
+            [class.fa-arrows-v]="priceSort == ''" [class.fa-long-arrow-up]="priceSort == 'ASC'"
+            [class.fa-long-arrow-down]="priceSort == 'DESC'"></i>Price</button>
+        <button class="btn btn-outline-secondary mr-2" (click)="sortList(DATE_SORT)"
+          [class.active]="dateSort == 'ASC' || dateSort == 'DESC'"><i class=" fa fa-1x"
+            [class.fa-arrows-v]="dateSort == ''" [class.fa-long-arrow-up]="dateSort == 'ASC'"
+            [class.fa-long-arrow-down]="dateSort == 'DESC'"></i>Date</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div list class="row justify-content-around">
     <shop-auction-card *ngFor="let auction of (listData$ | async)?.items" class="" [auction]="auction">
     </shop-auction-card>
   </div>
 
-  <div pagination class="row justify-content-around align-items-right mb-4">
+  <div pagination class="row justify-content-around mb-4">
     <app-pagination [paginationData]="(listData$ | async)?.paginationData" [basePath]="getBasePath()"
       [currentPage]="page"></app-pagination>
   </div>
+
 
 </app-abstract-list>

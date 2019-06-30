@@ -17,7 +17,6 @@ export class AuctionForUserService {
     return this.http.get<any>(apiURL)
       .pipe(
         tap(auctions => {
-          console.log("fetched auction");
           let idProduct = auctions.product.id;
           auctions.product.productVariants[0].productImages.forEach(image => {
             image.idImage = this.productBaseService.getProductImageLink(idProduct, image.id);

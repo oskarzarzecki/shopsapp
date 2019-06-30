@@ -44,6 +44,9 @@ public class ProductPropertyValue {
 	@Lob
 	private String description;
 
+	@Column(name = "show_in_category_filters")
+	private int showInCategoryFilters;
+
 	private String value;
 
 	// bi-directional many-to-one association to Product
@@ -97,6 +100,14 @@ public class ProductPropertyValue {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getShowInCategoryFilters() {
+		return this.showInCategoryFilters;
+	}
+
+	public void setShowInCategoryFilters(int showInCategoryFilters) {
+		this.showInCategoryFilters = showInCategoryFilters;
 	}
 
 	public String getValue() {

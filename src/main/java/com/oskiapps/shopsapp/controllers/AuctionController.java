@@ -10,9 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -54,10 +56,20 @@ public class AuctionController {
 	}
 
 	@GetMapping(value = "/get-auctions-by-category/{id}/{page}", produces = { "application/JSON" })
-	public String getAuctionsByCategory(@PathVariable Long id, @PathVariable int page) {
+	public String getAuctionsByCategory(@PathVariable Long id, @PathVariable int page,
+			@RequestParam(value = "priceSort", defaultValue = "") String priceSort,
+			@RequestParam(value = "dateSort", defaultValue = "") String dateSort) {
 
-		Pageable pageRequest = PageRequest.of(page, this.auctionsListProperties.getPageSize(),
-				new Sort(Direction.DESC, "promoted"));
+		Optional<Direction> directionPriceSort = Direction.fromOptionalString(priceSort);
+		Optional<Direction> directionDateSort = Direction.fromOptionalString(dateSort);
+		Order orderPrice = new Order(directionPriceSort.orElse(null), "priceBrutto");
+		Order orderDate = new Order(directionDateSort.orElse(null), "dateFrom");
+		List<Order> orders = new ArrayList<Order>();
+		if (!priceSort.equals(""))
+			orders.add(orderPrice);
+		if (!dateSort.equals(""))
+			orders.add(orderDate);
+		Pageable pageRequest = PageRequest.of(page, this.auctionsListProperties.getPageSize(), Sort.by(orders));
 		List<Auction> auctions = new LinkedList<Auction>(
 				auctionRepository.findAllByProductProductCategoryId(id, pageRequest).getContent());
 
@@ -72,7 +84,6 @@ public class AuctionController {
 		String json = null;
 		try {
 			json = mapper.writeValueAsString(listData);
-//			json = mapper.writeValueAsString(auctions);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}

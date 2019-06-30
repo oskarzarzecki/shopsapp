@@ -42,6 +42,14 @@ public class ProductProperty {
 
 	private int deleted;
 
+	@Column(name = "filter_input_manually")
+	private int filterInputManually;
+
+	@Column(name = "show_in_category_filters")
+	private int showInCategoryFilters;
+
+	private String unit;
+
 	// bi-directional many-to-one association to ProductCategory
 	@ManyToOne
 	@JoinColumn(name = "product_category_id")
@@ -93,6 +101,30 @@ public class ProductProperty {
 
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+
+	public int getFilterInputManually() {
+		return this.filterInputManually;
+	}
+
+	public void setFilterInputManually(int filterInputManually) {
+		this.filterInputManually = filterInputManually;
+	}
+
+	public int getShowInCategoryFilters() {
+		return this.showInCategoryFilters;
+	}
+
+	public void setShowInCategoryFilters(int showInCategoryFilters) {
+		this.showInCategoryFilters = showInCategoryFilters;
+	}
+
+	public String getUnit() {
+		return this.unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 
 	public ProductCategory getProductCategory() {

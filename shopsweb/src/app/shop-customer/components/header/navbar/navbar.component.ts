@@ -8,16 +8,12 @@ import { ProductTypeNavbar } from 'src/app/shop-customer/services/header/navbar/
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit, AfterViewInit {
+export class NavbarComponent implements OnInit {
 
   productTypes: ProductTypeNavbar[];
 
   @ViewChildren(NavbarItemComponent)
   navbarItems: QueryList<NavbarItemComponent>;
-
-  ngAfterViewInit(): void {
-    console.log(this.navbarItems);
-  }
 
   constructor(private promotedAuctionService: ProductTypeNavbarService) { }
 
@@ -29,7 +25,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     this.promotedAuctionService.getProductTypesNavbar().subscribe(
       result => {
         this.productTypes = result;
-        console.log(this.productTypes);
       }
     );
   }

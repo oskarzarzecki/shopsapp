@@ -14,13 +14,11 @@ export class ShopAuctionListService {
 
   constructor(private http: HttpClient, private config: ConfigService, private productBaseService: ProductBaseService) { }
 
-  getAuctions(idCategory: number, page: number): Observable<AbstractList<AuctionInCard>> {
-    let apiURL = `${this.config.apiRoot}auctions/get-auctions-by-category/${idCategory}/${page}`;
+  getAuctions(idCategory: number, page: number, priceSort: string, dateSort: string): Observable<AbstractList<AuctionInCard>> {
+    let apiURL = `${this.config.apiRoot}auctions/get-auctions-by-category/${idCategory}/${page}?priceSort=${priceSort}&dateSort=${dateSort}`;
     return this.http.get<AbstractList<AuctionInCard>>(apiURL)
       .pipe(
         tap(listData => {
-          console.log("fetched auctions");
-          console.log(listData);
           listData.items.forEach(auction => {
             auction.idImage = this.productBaseService.getProductImageLink(auction.idProduct, auction.idImage);
           });
