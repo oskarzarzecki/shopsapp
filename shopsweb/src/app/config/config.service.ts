@@ -9,6 +9,8 @@ export class ConfigService {
   public apiRoot: string = environment.apiRoot;
 
   public currency: string = environment.currency;
+  
+  public dateFormat: string = environment.dateFormat;
 
   constructor() { }
 }

@@ -11,6 +11,14 @@ export class AbstractListBase {
 
     public DATE_SORT = 'dateSort';
 
+    public PRICE_FROM = 'priceFrom';
+
+    public PRICE_TO = 'priceTo';
+
+    public DATE_FROM = 'dateFrom';
+
+    public DATE_TO = 'dateTo';
+
     // functions
 
     public getNextSortType(sortType: string) {

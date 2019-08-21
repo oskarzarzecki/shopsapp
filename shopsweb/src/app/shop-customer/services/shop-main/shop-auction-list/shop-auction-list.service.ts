@@ -14,8 +14,8 @@ export class ShopAuctionListService {
 
   constructor(private http: HttpClient, private config: ConfigService, private productBaseService: ProductBaseService) { }
 
-  getAuctions(idCategory: number, page: number, priceSort: string, dateSort: string): Observable<AbstractList<AuctionInCard>> {
-    let apiURL = `${this.config.apiRoot}auctions/get-auctions-by-category/${idCategory}/${page}?priceSort=${priceSort}&dateSort=${dateSort}`;
+  getAuctions(idCategory: number, page: number, params: string): Observable<AbstractList<AuctionInCard>> {
+    let apiURL = `${this.config.apiRoot}auctions/get-auctions-by-category/${idCategory}/${page}?${params}`;
     return this.http.get<AbstractList<AuctionInCard>>(apiURL)
       .pipe(
         tap(listData => {

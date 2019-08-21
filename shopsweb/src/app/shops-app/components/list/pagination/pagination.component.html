@@ -1,19 +1,20 @@
 <div class="btn-toolbar" role="toolbar">
   <div class="btn-group mr-2" role="group">
     <button *ngIf="paginationData?.showArrows && currentPage > 0" class="btn btn-outline-secondary"
-      routerLink="/{{basePath}}/{{0}}">&laquo;</button>
+      [routerLink]="['/'+basePath+'/'+0, params]">&laquo;</button>
     <button *ngIf="paginationData?.showArrows && currentPage > 0" class="btn btn-outline-secondary"
-      routerLink="/{{basePath}}/{{currentPage - 1}}">&lt;</button>
+      [routerLink]="['/'+basePath+'/'+(currentPage - 1), params]">&lt;</button>
   </div>
   <div class="btn-group mr-2" role="group">
     <button *ngFor="let i of pagesArray$ | async" class="btn btn-outline-secondary" [class.active]="i == currentPage"
-      routerLink="/{{basePath}}/{{i}}">{{i + 1}}</button>
+      [routerLink]="['/'+basePath+'/'+i, params]">{{i + 1}}</button>
   </div>
   <div class="btn-group mr-2" role="group">
     <button *ngIf="paginationData?.showArrows && currentPage < (pagesCount$ | async) - 1"
-      class="btn btn-outline-secondary" routerLink="/{{basePath}}/{{currentPage + 1}}">&gt;</button>
+      class="btn btn-outline-secondary" [routerLink]="['/'+basePath+'/'+(currentPage + 1), params]">&gt;</button>
     <button *ngIf="paginationData?.showArrows && currentPage < (pagesCount$ | async) - 1"
-      class="btn btn-outline-secondary" routerLink="/{{basePath}}/{{(pagesCount$ | async) - 1}}">&raquo;</button>
+      class="btn btn-outline-secondary"
+      [routerLink]="['/'+basePath+'/'+((pagesCount$ | async) - 1), params]">&raquo;</button>
   </div>
 </div>
 

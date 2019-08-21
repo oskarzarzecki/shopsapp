@@ -15,6 +15,7 @@ import { NavbarItemComponent } from './components/header/navbar/navbar-item/navb
 import { ShopAuctionsListComponent } from './components/shop-main/shop-auctions-list/shop-auctions-list.component';
 import { AuctionCardComponent } from './components/shared/auction-card/auction-card.component';
 import { ShopMainLargeComponent } from './components/shop-main-large/shop-main-large.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /**
  * ShopCustomerModule - main shop website, module intended for making orders by customers
@@ -23,7 +24,9 @@ import { ShopMainLargeComponent } from './components/shop-main-large/shop-main-l
   imports: [
     CommonModule,
     ShopCustomerRoutingModule,
-    ShopsAppModule
+    ShopsAppModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     HeaderTopRightComponent,

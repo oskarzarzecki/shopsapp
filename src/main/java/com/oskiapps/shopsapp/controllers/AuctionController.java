@@ -1,6 +1,11 @@
 package com.oskiapps.shopsapp.controllers;
 
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +35,7 @@ import com.oskiapps.shopsapp.model.auxiliaries.AbstractListData;
 import com.oskiapps.shopsapp.model.auxiliaries.PaginationData;
 import com.oskiapps.shopsapp.model.entities.Auction;
 import com.oskiapps.shopsapp.repository.AuctionRepository;
+import com.oskiapps.shopsapp.repository.specification.AuctionSpecs;
 import com.oskiapps.shopsapp.serializer.AuctionListSerializer;
 import com.oskiapps.shopsapp.serializer.PromotedAuctionSerializer;
 
@@ -58,7 +65,11 @@ public class AuctionController {
 	@GetMapping(value = "/get-auctions-by-category/{id}/{page}", produces = { "application/JSON" })
 	public String getAuctionsByCategory(@PathVariable Long id, @PathVariable int page,
 			@RequestParam(value = "priceSort", defaultValue = "") String priceSort,
-			@RequestParam(value = "dateSort", defaultValue = "") String dateSort) {
+			@RequestParam(value = "dateSort", defaultValue = "") String dateSort,
+			@RequestParam(value = "priceFrom", defaultValue = "0") String priceFrom,
+			@RequestParam(value = "priceTo", defaultValue = "0") String priceTo,
+			@RequestParam(value = "dateFrom", defaultValue = "") String dateFrom,
+			@RequestParam(value = "dateTo", defaultValue = "") String dateTo) {
 
 		Optional<Direction> directionPriceSort = Direction.fromOptionalString(priceSort);
 		Optional<Direction> directionDateSort = Direction.fromOptionalString(dateSort);
@@ -70,12 +81,42 @@ public class AuctionController {
 		if (!dateSort.equals(""))
 			orders.add(orderDate);
 		Pageable pageRequest = PageRequest.of(page, this.auctionsListProperties.getPageSize(), Sort.by(orders));
-		List<Auction> auctions = new LinkedList<Auction>(
-				auctionRepository.findAllByProductProductCategoryId(id, pageRequest).getContent());
+
+		boolean usedFilters = !priceFrom.equals("") || !priceFrom.equals("") || !priceFrom.equals("")
+				|| !priceFrom.equals("");
+
+		List<Auction> auctions = new LinkedList<Auction>();
+		Specification<Auction> spec = null;
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		Date dFrom = null;
+		Date dTo = null;
+		try {
+			if (!dateFrom.equals(""))
+				dFrom = df.parse(dateFrom);
+			if (!dateTo.equals(""))
+				dTo = df.parse(dateTo);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		if (usedFilters) {
+			spec = AuctionSpecs.categoryIs(id)
+					.and(AuctionSpecs.priceBetween(new BigDecimal(priceFrom), new BigDecimal(priceTo))
+							.and(AuctionSpecs.dateBetween(dFrom, dTo)));
+			auctions = new LinkedList<Auction>(this.auctionRepository.findAll(spec, pageRequest).getContent());
+		} else {
+			auctions = new LinkedList<Auction>(
+					this.auctionRepository.findAllByProductProductCategoryId(id, pageRequest).getContent());
+		}
 
 		AbstractListData listData = new AbstractListData();
 		listData.setItems(auctions);
-		listData.setPaginationData(this.getPaginationData(id));
+		PaginationData pd = this.getPaginationData();
+		if (usedFilters)
+			pd.setItemsCount((int) this.auctionRepository.count(spec));
+		else
+			pd.setItemsCount(this.auctionRepository.countByProductProductCategoryId(id));
+
+		listData.setPaginationData(pd);
 
 		ObjectMapper mapper = new ObjectMapper();
 		SimpleModule mod = new SimpleModule("PromotedAuction Module");
@@ -91,10 +132,8 @@ public class AuctionController {
 		return json;
 	}
 
-	private PaginationData getPaginationData(long idCategory) {
-		int count = auctionRepository.countByProductProductCategoryId(idCategory);
+	private PaginationData getPaginationData() {
 		PaginationData pd = new PaginationData();
-		pd.setItemsCount(count);
 		pd.setPageSize(this.auctionsListProperties.getPageSize());
 		pd.setAdjacentPages(this.auctionsListProperties.getPaginationAdjacentPages());
 		pd.setShowArrows(this.auctionsListProperties.isPaginationShowArrows());

@@ -16,10 +16,15 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Input() basePath: string = null;
   pagesCount$: BehaviorSubject<number>;
   pagesArray$: Observable<number[]>;
+  params: any = {};
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.route.url.subscribe(urlSegments => {
+      this.params = urlSegments[urlSegments.length - 1].parameters;
+      return urlSegments;
+    });
   }
 
   ngOnChanges() {
