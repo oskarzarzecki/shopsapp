@@ -125,17 +125,17 @@ DROP TABLE IF EXISTS `customer_account`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `customer_account` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `password_hash` varchar(1000) NOT NULL,
-  `date_from` date NOT NULL,
-  `date_to` date DEFAULT NULL,
+  `date_from` datetime NOT NULL,
+  `date_to` datetime DEFAULT NULL,
   `online` int(11) NOT NULL,
-  `last_visit` date NOT NULL,
+  `last_visit` datetime NOT NULL,
   `active` int(11) NOT NULL,
   `deleted` int(11) NOT NULL,
-  `date_deleted` date DEFAULT NULL,
+  `date_deleted` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1005,4 +1005,4 @@ CREATE TABLE `vat_rate` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-30 21:02:16
+-- Dump completed on 2020-02-16 21:57:17

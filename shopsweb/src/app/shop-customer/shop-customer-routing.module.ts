@@ -6,6 +6,9 @@ import { ShopStartPageComponent } from './components/shop-main/shop-start-page/s
 import { ShopAuctionComponent } from './components/shop-main/shop-auction/shop-auction.component';
 import { ShopAuctionsListComponent } from './components/shop-main/shop-auctions-list/shop-auctions-list.component';
 import { ShopMainLargeComponent } from './components/shop-main-large/shop-main-large.component';
+import { ShopRegisterComponent } from './components/shop-main/shop-register/shop-register.component';
+import { ShopAddressEditComponent } from './components/shop-main/shop-address-edit/shop-address-edit.component';
+import { CustomerAuthGuardService } from './services/guards/customer-auth-guard.service';
 
 const routes: Routes = [
   {
@@ -18,6 +21,8 @@ const routes: Routes = [
         children: [
           { path: '', component: ShopStartPageComponent },
           { path: 'auction/:id', component: ShopAuctionComponent },
+          { path: 'register', component: ShopRegisterComponent },
+          { path: 'address-edit', component: ShopAddressEditComponent, canActivate: [CustomerAuthGuardService] },
         ]
       },
       {

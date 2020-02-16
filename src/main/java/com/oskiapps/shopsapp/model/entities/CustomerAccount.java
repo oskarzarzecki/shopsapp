@@ -1,66 +1,81 @@
 package com.oskiapps.shopsapp.model.entities;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the customer_account database table.
  * 
  */
 @Entity
-@Table(name="customer_account")
-@NamedQuery(name="CustomerAccount.findAll", query="SELECT c FROM CustomerAccount c")
-public class CustomerAccount  {
+@Table(name = "customer_account")
+@NamedQuery(name = "CustomerAccount.findAll", query = "SELECT c FROM CustomerAccount c")
+public class CustomerAccount {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private int active;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="date_deleted")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "date_deleted")
 	private Date dateDeleted;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_from")
+	@Column(name = "date_from")
 	private Date dateFrom;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="date_to")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "date_to")
 	private Date dateTo;
 
 	private int deleted;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="last_visit")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "last_visit")
 	private Date lastVisit;
 
 	private int online;
 
-	@Column(name="password_hash")
+	@NotBlank(message = "incorrect password")
+	@Column(name = "password_hash")
 	private String passwordHash;
 
-	private String username;
+	@Email(message = "incorrect email")
+	@Size(min = 5, max = 200, message = "incorrect email")
+	@Column(name = "email")
+	private String email;
 
-	//bi-directional many-to-one association to CustomerAdress
-	@OneToMany(mappedBy="customerAccount")
+	// bi-directional many-to-one association to CustomerAdress
+	@OneToMany(mappedBy = "customerAccount")
 	private List<CustomerAdress> customerAdresses;
 
-	//bi-directional many-to-one association to CustomerBasket
-	@OneToMany(mappedBy="customerAccount")
+	// bi-directional many-to-one association to CustomerBasket
+	@OneToMany(mappedBy = "customerAccount")
 	private List<CustomerBasket> customerBaskets;
 
-	//bi-directional many-to-one association to CustomerFavoriteProduct
-	@OneToMany(mappedBy="customerAccount")
+	// bi-directional many-to-one association to CustomerFavoriteProduct
+	@OneToMany(mappedBy = "customerAccount")
 	private List<CustomerFavoriteProduct> customerFavoriteProducts;
 
-	//bi-directional many-to-one association to CustomerLogin
-	@OneToMany(mappedBy="customerAccount")
+	// bi-directional many-to-one association to CustomerLogin
+	@OneToMany(mappedBy = "customerAccount")
 	private List<CustomerLogin> customerLogins;
 
 	public CustomerAccount() {
@@ -138,12 +153,12 @@ public class CustomerAccount  {
 		this.passwordHash = passwordHash;
 	}
 
-	public String getUsername() {
-		return this.username;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public List<CustomerAdress> getCustomerAdresses() {

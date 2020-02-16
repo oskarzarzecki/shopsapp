@@ -1,6 +1,7 @@
 <shops-app-header>
   <shops-app-logo shopsapp-logo></shops-app-logo>
-  <shops-app-header-top-right-login shopsapp-top-right class="d-flex justify-content-end mb-2"></shops-app-header-top-right-login>
+  <shops-app-header-top-right-login (authEvent)="authenticate($event)" *ngIf="!isLogged()" shopsapp-top-right class="d-flex justify-content-end mb-2"></shops-app-header-top-right-login>
+  <shops-app-header-top-right-logged-user (logoutEvent)="logout($event)" [email]=loggedCustomer.email *ngIf="isLogged()" shopsapp-top-right class="d-flex justify-content-end mb-2"></shops-app-header-top-right-logged-user>
   <shops-app-header-navbar shopsapp-nav></shops-app-header-navbar>
 </shops-app-header>
 

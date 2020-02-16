@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+declare let $: any;
 
 export default class ShopsappUtils {
 
@@ -12,6 +12,10 @@ export default class ShopsappUtils {
             list.push(i);
         }
         return list;
+    }
+
+    static getObjectToUrl(o: object) {
+        return $.param(o);
     }
 
 }

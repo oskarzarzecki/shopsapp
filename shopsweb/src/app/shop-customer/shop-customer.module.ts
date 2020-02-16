@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ShopCustomerRoutingModule } from './shop-customer-routing.module';
-import { HeaderTopRightComponent } from './components/header/header-top-right/header-top-right.component';
+import { HeaderTopRightLoginComponent } from './components/header/header-top-right/header-top-right-login/header-top-right-login.component';
 import { ShopStartPageComponent } from './components/shop-main/shop-start-page/shop-start-page.component';
 import { JumboComponent } from './components/shop-main/shop-start-page/jumbo/jumbo.component';
 import { PromotedListComponent } from './components/shop-main/shop-start-page/promoted-list/promoted-list.component';
@@ -16,6 +16,9 @@ import { ShopAuctionsListComponent } from './components/shop-main/shop-auctions-
 import { AuctionCardComponent } from './components/shared/auction-card/auction-card.component';
 import { ShopMainLargeComponent } from './components/shop-main-large/shop-main-large.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ShopRegisterComponent } from './components/shop-main/shop-register/shop-register.component';
+import { HeaderTopRightLoggedUserComponent } from './components/header/header-top-right/header-top-right-logged-user/header-top-right-logged-user.component';
+import { ShopAddressEditComponent } from './components/shop-main/shop-address-edit/shop-address-edit.component';
 
 /**
  * ShopCustomerModule - main shop website, module intended for making orders by customers
@@ -29,7 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [
-    HeaderTopRightComponent,
+    HeaderTopRightLoginComponent,
     JumboComponent,
     PromotedListComponent,
     ShopStartPageComponent,
@@ -40,7 +43,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ShopAuctionsListComponent,
     NavbarItemComponent,
     AuctionCardComponent,
-    ShopMainLargeComponent
+    ShopMainLargeComponent,
+    ShopRegisterComponent,
+    HeaderTopRightLoggedUserComponent,
+    ShopAddressEditComponent
   ]
 })
 export class ShopCustomerModule { }

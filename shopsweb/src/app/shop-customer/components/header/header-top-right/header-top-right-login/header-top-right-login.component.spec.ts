@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderTopRightComponent } from './header-top-right.component';
+import { HeaderTopRightLoginComponent } from './header-top-right-login.component';
 
 describe('HeaderTopRightComponent', () => {
-  let component: HeaderTopRightComponent;
-  let fixture: ComponentFixture<HeaderTopRightComponent>;
+  let component: HeaderTopRightLoginComponent;
+  let fixture: ComponentFixture<HeaderTopRightLoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderTopRightComponent ]
+      declarations: [ HeaderTopRightLoginComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderTopRightComponent);
+    fixture = TestBed.createComponent(HeaderTopRightLoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

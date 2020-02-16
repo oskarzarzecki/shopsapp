@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, OnChanges, AfterContentInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, debounceTime, startWith, filter } from 'rxjs/operators';
+import { switchMap, debounceTime } from 'rxjs/operators';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ConfigService } from 'src/app/config/config.service';
 import { AuctionInCard } from 'src/app/shop-customer/services/shop-main/auction-in-card';
@@ -12,6 +12,7 @@ import { AbstractList } from 'src/app/shops-app/components/list/abstract-list';
 import { ListInterface } from 'src/app/shops-app/components/list/list-interface';
 import { AbstractListBase } from 'src/app/shops-app/components/list/abstract-list-base';
 import { FormControl } from '@angular/forms';
+import ShopsappUtils from 'src/app/shops-app/shopsapp-utils';
 declare let $: any;
 
 @Component({
@@ -66,7 +67,7 @@ export class ShopAuctionsListComponent extends AbstractListBase implements OnIni
         $("#priceTo").val(this.params[this.PRICE_TO]);
         $("#dateFrom").val(this.params[this.DATE_FROM]);
         $("#dateTo").val(this.params[this.DATE_TO]);
-        return this.shopAuctionListService.getAuctions(this.idCategory, this.page, $.param(this.params));
+        return this.shopAuctionListService.getAuctions(this.idCategory, this.page, ShopsappUtils.getObjectToUrl(this.params));
       })
     );
 
