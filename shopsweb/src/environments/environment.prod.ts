@@ -1,5 +1,6 @@
 export const environment = {
-  production: true,
-  apiRoot: 'http://localhost:4200/api/',
-  currency: 'zł'
+  production: false,
+  apiRoot: 'http://31.186.82.95:8082/',
+  currency: 'zł',
+  dateFormat: 'dd-mm-yy'
 };

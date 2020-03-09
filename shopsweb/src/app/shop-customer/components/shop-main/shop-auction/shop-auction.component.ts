@@ -20,7 +20,7 @@ export class ShopAuctionComponent implements OnInit {
     @Inject(DOCUMENT) private _document,
     private auctionForUserService: AuctionForUserService,
     private route: ActivatedRoute,
-    private config: ConfigService
+    public config: ConfigService
   ) { }
 
   ngOnInit() {

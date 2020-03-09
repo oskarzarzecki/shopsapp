@@ -33,11 +33,11 @@ public class FileStorageService {
 
 	public Resource loadImageResource(String imagePath) {
 		try {
-			String mimeType = ShopsappUtils.getMimeType(imagePath);
+			Path file = this.filePath.resolve(this.filePath.toAbsolutePath() + imagePath);
+			String mimeType = ShopsappUtils.getMimeType(file.toString());
 			if (!mimeType.split("/")[0].equals("image")) {
 				throw new FileStorageException("The requested file is not an image.");
 			}
-			Path file = this.filePath.resolve(this.filePath.toAbsolutePath() + imagePath);
 			Resource resource = new UrlResource(file.toUri());
 			if (resource.exists() || resource.isReadable()) {
 				return resource;

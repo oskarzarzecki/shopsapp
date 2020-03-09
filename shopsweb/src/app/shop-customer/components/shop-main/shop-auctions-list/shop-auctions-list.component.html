@@ -1,13 +1,13 @@
 <app-abstract-list>
 
   <div filters class="row bg-main-light pt-3">
-    <div class="col-10">
+    <div class="col-11 col-xl-10">
       <h4>Filter</h4>
     </div>
     <div class="col-1">
       <i class=" fa fa-1x fa-filter"></i>
     </div>
-    <div class="col">
+    <div class="col-12">
       <div class="row">
         <label class="col-12">Price</label>
         <div class="col-6 mb-3">
@@ -40,11 +40,11 @@
     </div>
   </div>
 
-  <div sort class="row mb-4">
-    <div class="col-1">
+  <div sort class="row mb-4 mt-4 mt-xl-0">
+    <div class="col-2 col-md-1">
       <h4>Sort</h4>
     </div>
-    <div class="col-11">
+    <div class="col-6 col-lg-11 ml-4 ml-lg-0">
       <div class="row">
         <button class="btn btn-outline-secondary mr-2" (click)="sortList(PRICE_SORT)"
           [class.active]="params.priceSort == 'ASC' || params.priceSort == 'DESC'"><i class=" fa fa-1x"

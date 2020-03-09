@@ -30,9 +30,9 @@ export class ShopAuctionsListComponent extends AbstractListBase implements OnIni
   priceToInput: FormControl;
   dateFromInput: FormControl;
   dateToInput: FormControl;
-  params = {};
+  params = <any>{};
 
-  constructor(private http: HttpClient, private config: ConfigService, private shopAuctionListService: ShopAuctionListService,
+  constructor(private http: HttpClient, public config: ConfigService, private shopAuctionListService: ShopAuctionListService,
     private auctionForUserService: AuctionForUserService, private route: ActivatedRoute, private router: Router) {
     super();
   }

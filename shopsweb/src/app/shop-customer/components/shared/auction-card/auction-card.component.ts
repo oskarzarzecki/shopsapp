@@ -13,7 +13,7 @@ export class AuctionCardComponent implements OnInit {
   @Input()
   auction: AuctionInCard;
 
-  constructor(private config: ConfigService) { }
+  constructor(public config: ConfigService) { }
 
   ngOnInit() {
   }
