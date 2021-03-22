@@ -58,7 +58,7 @@ public class AuctionController {
 	}
 
 	@GetMapping("/get-all-auctions")
-	public List<Auction> GetAllAuctions() {
+	public List<Auction> getAllAuctions() {
 		return auctionRepository.findAll();
 	}
 
@@ -146,7 +146,7 @@ public class AuctionController {
 		int nameMaxLength = promotedAuctionsProperties.getNameMaxLength();
 		int descMaxLength = promotedAuctionsProperties.getDescriptionMaxLength();
 		int itemsMaxCount = promotedAuctionsProperties.getItemsCount();
-		PageRequest pageRequest = PageRequest.of(0, itemsMaxCount, new Sort(Direction.DESC, "promoted"));
+		PageRequest pageRequest = PageRequest.of(0, itemsMaxCount, Sort.by(Direction.DESC, "promoted"));
 		List<Auction> auctions = new LinkedList<Auction>(auctionRepository.findAll(pageRequest).getContent());
 		List<Auction> selectedAuctions = new ArrayList<>();
 		itemsMaxCount = itemsMaxCount > auctions.size() ? (int) auctions.size()
