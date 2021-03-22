@@ -22,7 +22,7 @@ public class ProductTypeController {
 	@GetMapping("")
 	@JsonView(AllProductTypesWithCategories.class)
 	public List<ProductType> getAllProductTypes() {
-		return productTypeRepository.findAll();
+		return productTypeRepository.findAllAvailableNotDeletedWithCategories();
 	}
 
 }
