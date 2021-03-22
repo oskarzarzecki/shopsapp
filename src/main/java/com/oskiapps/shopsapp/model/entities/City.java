@@ -1,37 +1,46 @@
 package com.oskiapps.shopsapp.model.entities;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the city database table.
  * 
  */
 @Entity
-@NamedQuery(name="City.findAll", query="SELECT c FROM City c")
-public class City  {
+@NamedQuery(name = "City.findAll", query = "SELECT c FROM City c")
+public class City {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private String name;
 
 	private String region;
 
-	//bi-directional many-to-one association to Country
+	// bi-directional many-to-one association to Country
 	@ManyToOne
 	private Country country;
 
-	//bi-directional many-to-one association to CustomerAdress
-	@OneToMany(mappedBy="city")
+	// bi-directional many-to-one association to CustomerAdress
+	@JsonIgnore
+	@OneToMany(mappedBy = "city")
 	private List<CustomerAdress> customerAdresses;
 
-	//bi-directional many-to-one association to Place
-	@OneToMany(mappedBy="city")
+	// bi-directional many-to-one association to Place
+	@JsonIgnore
+	@OneToMany(mappedBy = "city")
 	private List<Place> places;
 
 	public City() {

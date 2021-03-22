@@ -1,50 +1,64 @@
 package com.oskiapps.shopsapp.model.entities;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the customer_adress database table.
  * 
  */
 @Entity
-@Table(name="customer_adress")
-@NamedQuery(name="CustomerAdress.findAll", query="SELECT c FROM CustomerAdress c")
-public class CustomerAdress  {
+@Table(name = "customer_adress")
+@NamedQuery(name = "CustomerAdress.findAll", query = "SELECT c FROM CustomerAdress c")
+public class CustomerAdress {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_deleted")
+	@Column(name = "date_deleted")
 	private Date dateDeleted;
 
 	private int deleted;
 
-	@Column(name="phone_number")
+	@Column(name = "phone_number")
 	private String phoneNumber;
 
-	@Column(name="postal_code")
+	@Column(name = "postal_code")
 	private String postalCode;
 
 	private String street;
 
-	//bi-directional many-to-one association to City
+	// bi-directional many-to-one association to City
 	@ManyToOne
 	private City city;
 
-	//bi-directional many-to-one association to CustomerAccount
+	// bi-directional many-to-one association to CustomerAccount
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="customer_account_id")
+	@JoinColumn(name = "customer_account_id")
 	private CustomerAccount customerAccount;
 
-	//bi-directional many-to-one association to CustomerOrder
-	@OneToMany(mappedBy="customerAdress")
+	// bi-directional many-to-one association to CustomerOrder
+	@JsonIgnore
+	@OneToMany(mappedBy = "customerAdress")
 	private List<CustomerOrder> customerOrders;
 
 	public CustomerAdress() {
